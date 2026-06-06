@@ -2057,7 +2057,19 @@ body.light-mode #lead-message {
   }
 
   .hero-name {
-    font-size: 3.18rem;
+    font-size: 2.6rem;
+  }
+
+  .hero-dynamic {
+    font-size: 1.15rem;
+  }
+
+  #build-rotator {
+    min-width: 0;
+  }
+
+  .portrait-system {
+    display: none;
   }
 
   .hero-intro {
@@ -2074,16 +2086,7 @@ body.light-mode #lead-message {
   }
 
   .hero-dashboard {
-    grid-template-columns: 1fr;
-  }
-
-  .metric-tile {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .metric-tile:last-child {
-    border-bottom: 0;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .signal-track {
@@ -2119,11 +2122,31 @@ body.light-mode #lead-message {
   }
 
   .project-grid,
-  .stack-grid,
-  .stack-logo-grid,
-  .application-strip,
-  .gallery {
+  .stack-grid {
     grid-template-columns: 1fr;
+  }
+
+  .stack-logo-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .stack-logo-card {
+    min-height: 100px;
+    padding: 14px 8px;
+  }
+
+  .stack-logo-card img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stack-card {
+    min-height: auto;
   }
 
   .project-body {
@@ -2159,6 +2182,63 @@ body.light-mode #lead-message {
 
   .modal-next {
     right: calc(50% - 58px);
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-name {
+    font-size: 2rem;
+  }
+
+  .hero-dynamic {
+    font-size: 1.05rem;
+  }
+
+  .section-heading h2,
+  .contact-copy h2 {
+    font-size: 1.72rem;
+  }
+
+  .experience-top h3 {
+    font-size: 1.6rem;
+  }
+
+  .achievement-panel h3 {
+    font-size: 1.4rem;
+  }
+
+  .section-index {
+    font-size: 0.82rem;
+  }
+
+  .stack-logo-grid {
+    gap: 8px;
+  }
+
+  .stack-logo-card {
+    min-height: 88px;
+    padding: 10px 4px;
+  }
+
+  .stack-logo-card img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .stack-logo-card span {
+    font-size: 0.72rem;
+  }
+
+  .metric-value {
+    font-size: 1.75rem;
+  }
+
+  .contact-layout {
+    padding: 16px;
+  }
+
+  .lead-form {
+    padding: 14px;
   }
 }
 
