@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Omar Farque | Engineer Portfolio</title>
+  <meta name="description" content="Omar Farque is a CSE student, web developer, digital marketer, and AI automation builder creating fast business websites and practical digital systems." />
+  <meta name="author" content="Omar Farque" />
+  <meta name="keywords" content="Omar Farque, Web Developer, CSE, BUBT, AI Automation, Digital Marketing, Portfolio, Bangladesh, Trip Fly BD" />
+  <meta name="theme-color" content="#08090d" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Omar Farque | Engineer Portfolio" />
+  <meta property="og:description" content="Premium 3D portfolio for a CSE student, web developer, digital marketer, and AI automation builder." />
+  <meta property="og:image" content="assets/Omar.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="assets/omar-logo.svg" />
+  <link rel="stylesheet" href="style.css?v=20260606-welcome-intro" />
+</head>
+<body>
+  <div id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <img class="loader-logo" src="assets/omar-logo.svg" alt="" />
+      <div class="loader-bar"><span></span></div>
+      <p>Preparing portfolio...</p>
+    </div>
+  </div>
+
+  <div id="welcome-intro" aria-hidden="true">
+    <div class="welcome-card">
+      <div class="welcome-avatar">
+        <img src="assets/Omar.png" alt="Omar Farque" />
+        <span></span>
+      </div>
+      <div class="welcome-copy">
+        <p>Hello, I'm Omar</p>
+        <h2>Welcome to my engineer portfolio</h2>
+        <div class="welcome-tags">
+          <span>Web Developer</span>
+          <span>Video Editor</span>
+          <span>AI Automation</span>
+        </div>
+      </div>
+      <button id="welcome-skip" class="welcome-enter" type="button">
+        Enter <i data-lucide="arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <div id="cursor" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div class="page-grid" aria-hidden="true"></div>
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <header id="navbar">
+    <a href="#hero" class="brand" aria-label="Omar Farque home">
+      <img class="brand-logo" src="assets/omar-logo.svg" alt="" />
+      <span>Omar Farque</span>
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="Primary navigation">
+      <a href="#profile" class="nav-link">Profile</a>
+      <a href="#experience" class="nav-link">Experience</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#stack" class="nav-link">Stack</a>
+      <a href="#proof" class="nav-link">Proof</a>
+      <a href="#contact" class="nav-link nav-pill">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="icon-button" aria-label="Switch to light mode" aria-pressed="false">
+        <i data-lucide="sun"></i>
+      </button>
+      <button id="nav-toggle" class="icon-button" aria-label="Toggle navigation" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="hero-scene" aria-hidden="true">
+        <div class="portrait-system tilt-soft">
+          <div class="portrait-ring portrait-ring-one"></div>
+          <div class="portrait-ring portrait-ring-two"></div>
+          <div class="portrait-plate">
+            <img src="assets/Omar.png" alt="Omar Farque in formal attire" />
+            <div class="portrait-scan"></div>
+          </div>
+          <div class="orbit-label orbit-label-one">CSE</div>
+          <div class="orbit-label orbit-label-two">AI</div>
+          <div class="orbit-label orbit-label-three">WEB</div>
+        </div>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow reveal">Dhaka, Bangladesh | CSE at BUBT | Production web work</p>
+          <h1 class="hero-name reveal">Omar Farque</h1>
+          <p class="hero-dynamic reveal">
+            <span class="build-prefix">I build</span>
+            <span id="build-rotator" aria-live="polite">premium web portfolios</span>
+          </p>
+          <p class="hero-intro reveal">
+            Engineer-minded web developer and digital marketer focused on responsive websites,
+            AI automation, chatbot workflows, SEO-ready pages, video editing, and practical
+            business systems for local and international opportunities.
+          </p>
+          <div class="hero-actions reveal">
+            <a href="assets/cv.pdf" download class="btn btn-primary magnetic">
+              <i data-lucide="download"></i>
+              Download CV
+            </a>
+            <a href="#projects" class="btn btn-secondary magnetic">
+              <i data-lucide="monitor-up"></i>
+              Live Work
+            </a>
+            <a href="https://github.com/omaar-x" target="_blank" rel="noopener" class="btn btn-quiet magnetic">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="" class="github-mark" />
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-dashboard reveal" aria-label="Portfolio highlights">
+          <div class="metric-tile">
+            <span class="metric-value" data-count="3" data-suffix="+">0</span>
+            <span class="metric-label">Live builds</span>
+          </div>
+          <div class="metric-tile">
+            <span class="metric-value" data-count="11" data-suffix="+">0</span>
+            <span class="metric-label">Tools used</span>
+          </div>
+          <div class="metric-tile">
+            <span class="metric-value">3.24</span>
+            <span class="metric-label">CSE CGPA</span>
+          </div>
+          <div class="metric-tile">
+            <span class="metric-value" data-count="2026">0</span>
+            <span class="metric-label">Graduation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="signal-band" aria-label="Professional focus">
+      <div class="container signal-track reveal">
+        <span>Web Development</span>
+        <span>AI Automation</span>
+        <span>Digital Marketing</span>
+        <span>Video Editing</span>
+        <span>Chatbot Systems</span>
+        <span>Travel Technology</span>
+        <span>Responsive UI</span>
+      </div>
+    </section>
+
+    <section id="profile" class="section">
+      <div class="container section-grid">
+        <div class="section-heading reveal">
+          <span class="section-index">01</span>
+          <h2>Professional Profile</h2>
+        </div>
+        <div class="profile-copy reveal">
+          <p>
+            I am Omar Farque, a Computer Science and Engineering student at
+            Bangladesh University of Business and Technology. My work sits at the
+            intersection of front-end development, digital growth, automation, and
+            real business operations.
+          </p>
+          <p>
+            At Trip Fly BD, I work across website development, landing pages,
+            digital branding, SEO, social media campaigns, customer engagement,
+            and automation support. That combination helps me build websites that
+            look polished, load fast, and support business goals.
+          </p>
+          <p>
+            My goal is to present a clear, verifiable profile for international
+            employers: real projects, academic progress, practical workplace
+            experience, video editing ability, and a stack that connects development
+            with business outcomes.
+          </p>
+          <div class="resume-focus">
+            <div>
+              <i data-lucide="layout-dashboard"></i>
+              <span>Build clean, mobile-first interfaces for service businesses.</span>
+            </div>
+            <div>
+              <i data-lucide="bot"></i>
+              <span>Connect AI and chatbot ideas with practical workflows.</span>
+            </div>
+            <div>
+              <i data-lucide="line-chart"></i>
+              <span>Use marketing insight to improve conversion and clarity.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section section-alt">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="section-index">02</span>
+          <h2>Experience</h2>
+        </div>
+
+        <article class="experience-card reveal tilt">
+          <div class="experience-top">
+            <div>
+              <p class="overline">Current Role</p>
+              <h3>Web Developer & Digital Marketer</h3>
+              <p class="company">Trip Fly BD</p>
+            </div>
+            <span class="role-chip">Production + Growth</span>
+          </div>
+          <div class="experience-grid">
+            <div class="experience-copy">
+              <p>
+                I support the company with web pages, digital campaigns, online
+                brand presentation, customer-facing content, and automation-ready
+                systems for travel operations.
+              </p>
+            </div>
+            <ul class="impact-list">
+              <li><i data-lucide="check"></i><span>Design and maintain responsive website sections.</span></li>
+              <li><i data-lucide="check"></i><span>Create conversion-focused landing page content.</span></li>
+              <li><i data-lucide="check"></i><span>Improve SEO structure, brand clarity, and online trust.</span></li>
+              <li><i data-lucide="check"></i><span>Support customer engagement through digital channels.</span></li>
+              <li><i data-lucide="check"></i><span>Explore AI automation and chatbot support for operations.</span></li>
+              <li><i data-lucide="check"></i><span>Work with air ticket reservation and travel consultation flows.</span></li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-heading split reveal">
+          <div>
+            <span class="section-index">03</span>
+            <h2>Live Project Outlook</h2>
+          </div>
+          <p>Real website snapshots are shown inside each project card so recruiters can see the work immediately.</p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card reveal tilt">
+            <a class="project-preview" href="https://www.tripflybd.com/" target="_blank" rel="noopener" aria-label="Open Trip Fly BD live website">
+              <span class="browser-bar"><span></span><span></span><span></span></span>
+              <img src="assets/preview-tripfly.png" alt="Trip Fly BD homepage preview" loading="lazy" />
+            </a>
+            <div class="project-body">
+              <div class="project-title-row">
+                <span class="project-number">01</span>
+                <h3>Trip Fly BD Website</h3>
+              </div>
+              <p>
+                Travel agency website experience with strong hero messaging,
+                service clarity, consultation CTAs, and trust-focused brand design.
+              </p>
+              <div class="chips">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>SEO</span>
+              </div>
+              <a href="https://www.tripflybd.com/" target="_blank" rel="noopener" class="text-link">
+                Visit live site <i data-lucide="external-link"></i>
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card reveal tilt">
+            <a class="project-preview" href="https://midtownaabashonltd.com/" target="_blank" rel="noopener" aria-label="Open Midtown Aabashon live website">
+              <span class="browser-bar"><span></span><span></span><span></span></span>
+              <img src="assets/preview-midtown.png" alt="Midtown Aabashon homepage preview" loading="lazy" />
+            </a>
+            <div class="project-body">
+              <div class="project-title-row">
+                <span class="project-number">02</span>
+                <h3>Midtown Aabashon Ltd</h3>
+              </div>
+              <p>
+                Real-estate corporate website with clear property positioning,
+                project discovery, responsive layout, and high-intent contact paths.
+              </p>
+              <div class="chips">
+                <span>Responsive UI</span>
+                <span>Business Site</span>
+                <span>Performance</span>
+              </div>
+              <a href="https://midtownaabashonltd.com/" target="_blank" rel="noopener" class="text-link">
+                Visit live site <i data-lucide="external-link"></i>
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card reveal tilt">
+            <a class="project-preview" href="https://omaar-x.github.io/Tripfly-Smart-Attendance-System/" target="_blank" rel="noopener" aria-label="Open Smart Attendance System live app">
+              <span class="browser-bar"><span></span><span></span><span></span></span>
+              <img src="assets/preview-attendance.png" alt="Trip Fly BD Smart Attendance System preview" loading="lazy" />
+            </a>
+            <div class="project-body">
+              <div class="project-title-row">
+                <span class="project-number">03</span>
+                <h3>Smart Attendance System</h3>
+              </div>
+              <p>
+                Lightweight web app for Trip Fly BD attendance operations with
+                role-based sign-in, polished UI, and practical workflow design.
+              </p>
+              <div class="chips">
+                <span>JavaScript</span>
+                <span>Web App</span>
+                <span>GitHub Pages</span>
+              </div>
+              <a href="https://omaar-x.github.io/Tripfly-Smart-Attendance-System/" target="_blank" rel="noopener" class="text-link">
+                Visit live app <i data-lucide="external-link"></i>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack" class="section section-alt">
+      <div class="container">
+        <div class="section-heading split reveal">
+          <div>
+            <span class="section-index">04</span>
+            <h2>Engineering Stack</h2>
+          </div>
+          <p>Tools and capabilities shown visually for quick international recruiter screening.</p>
+        </div>
+
+        <div class="stack-logo-grid">
+          <article class="stack-logo-card reveal">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" alt="C logo" loading="lazy" />
+            <span>C</span>
+          </article>
+          <article class="stack-logo-card reveal">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" alt="C++ logo" loading="lazy" />
+            <span>C++</span>
+          </article>
+          <article class="stack-logo-card reveal">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java logo" loading="lazy" />
+            <span>Java</span>
+          </article>
+          <article class="stack-logo-card reveal">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python logo" loading="lazy" />
+            <span>Python</span>
+          </article>
+          <article class="stack-logo-card reveal">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript logo" loading="lazy" />
+            <span>JavaScript</span>
+          </article>
+          <article class="stack-logo-card reveal">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5 logo" loading="lazy" />
+            <span>HTML5</span>
+          </article>
+          <article class="stack-logo-card reveal">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS3 logo" loading="lazy" />
+            <span>CSS3</span>
+          </article>
+          <article class="stack-logo-card reveal">
+            <img class="logo-invert" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub logo" loading="lazy" />
+            <span>GitHub</span>
+          </article>
+        </div>
+
+        <div class="stack-grid">
+          <article class="stack-card reveal">
+            <i data-lucide="layout-template"></i>
+            <h3>Responsive Web UI</h3>
+            <p>Mobile-first pages, clean layouts, accessibility-aware navigation, fast visual scanning.</p>
+            <div class="skill-meter" style="--level: 86%"><span></span></div>
+          </article>
+          <article class="stack-card reveal">
+            <i data-lucide="bot"></i>
+            <h3>AI & Chatbot Automation</h3>
+            <p>Practical automation ideas for customer support, lead response, and service workflows.</p>
+            <div class="skill-meter" style="--level: 74%"><span></span></div>
+          </article>
+          <article class="stack-card reveal">
+            <i data-lucide="search-check"></i>
+            <h3>SEO & Digital Growth</h3>
+            <p>Search-friendly page structure, social content, brand trust, and customer engagement.</p>
+            <div class="skill-meter" style="--level: 82%"><span></span></div>
+          </article>
+          <article class="stack-card reveal">
+            <i data-lucide="clapperboard"></i>
+            <h3>Video Editing & Creative Production</h3>
+            <p>Video editing, Canva design, presentation assets, and polished marketing visuals.</p>
+            <div class="skill-meter" style="--level: 76%"><span></span></div>
+          </article>
+          <article class="stack-card reveal">
+            <i data-lucide="plane"></i>
+            <h3>Travel Technology</h3>
+            <p>Air ticket reservation support, travel consultation flow, and service operation thinking.</p>
+            <div class="skill-meter" style="--level: 80%"><span></span></div>
+          </article>
+          <article class="stack-card reveal">
+            <i data-lucide="messages-square"></i>
+            <h3>Communication</h3>
+            <p>Client-facing communication, team coordination, documentation, and problem explanation.</p>
+            <div class="skill-meter" style="--level: 84%"><span></span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="proof" class="section">
+      <div class="container proof-layout">
+        <div>
+          <div class="section-heading reveal">
+            <span class="section-index">05</span>
+            <h2>Education & Proof</h2>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-item reveal">
+              <span>SSC | 2019</span>
+              <h3>Secondary School Certificate</h3>
+              <p>Churain Tarini Bama High School | GPA 4.17 / 5.00</p>
+              <ul class="timeline-detail">
+                <li>Built the academic foundation for science, mathematics, and disciplined study habits.</li>
+                <li>Useful as early academic proof for international application documentation.</li>
+              </ul>
+            </article>
+            <article class="timeline-item reveal">
+              <span>HSC | 2021</span>
+              <h3>Higher Secondary Certificate</h3>
+              <p>Kharrah Adarsha Degree Honours College | GPA 4.58 / 5.00</p>
+              <ul class="timeline-detail">
+                <li>Strengthened analytical preparation before entering Computer Science and Engineering.</li>
+                <li>Shows consistent academic progress from school to university-level technical study.</li>
+              </ul>
+            </article>
+            <article class="timeline-item reveal">
+              <span>B.Sc. CSE | Expected 2026</span>
+              <h3>B.Sc. in Computer Science & Engineering</h3>
+              <p>Bangladesh University of Business and Technology | CGPA 3.24 / 4.00</p>
+              <ul class="timeline-detail">
+                <li>Core direction: programming, web systems, software thinking, and applied computing.</li>
+                <li>Graduation timeline is aligned with entry-level international web, IT, and digital roles.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <aside class="achievement-panel reveal">
+          <h3>International Application Signals</h3>
+          <p class="panel-intro">
+            Useful proof points for abroad offer-letter applications, employer screening,
+            internship applications, and remote collaboration proposals.
+          </p>
+          <ul>
+            <li><i data-lucide="award"></i><span>BIUPC Programming Contest participant</span></li>
+            <li><i data-lucide="users"></i><span>BUBT Innovtex Hackathon volunteer</span></li>
+            <li><i data-lucide="terminal"></i><span>BUBT ICPC 2025 participant</span></li>
+            <li><i data-lucide="rocket"></i><span>Real-world project developer</span></li>
+            <li><i data-lucide="briefcase-business"></i><span>Trip Fly BD professional experience</span></li>
+            <li><i data-lucide="globe-2"></i><span>Open to international junior web, IT support, digital marketing, video editing, and travel-tech roles</span></li>
+          </ul>
+        </aside>
+      </div>
+
+      <div class="container application-strip reveal">
+        <div>
+          <i data-lucide="file-check-2"></i>
+          <span>Academic Record</span>
+        </div>
+        <div>
+          <i data-lucide="folder-check"></i>
+          <span>Project Proof</span>
+        </div>
+        <div>
+          <i data-lucide="badge-check"></i>
+          <span>Certificates</span>
+        </div>
+        <div>
+          <i data-lucide="briefcase"></i>
+          <span>Work Experience</span>
+        </div>
+      </div>
+
+      <div class="container gallery-wrap">
+        <div class="gallery-head reveal">
+          <h3>Certificate Gallery</h3>
+          <p>Selected certificates and participation proof.</p>
+        </div>
+        <div class="gallery">
+          <button class="gallery-item reveal" data-img="assets/pic1.jpeg" data-caption="Certificate 01" aria-label="Open certificate 01">
+            <img src="assets/pic1.jpeg" alt="Certificate 01" loading="lazy" />
+            <span><i data-lucide="maximize-2"></i></span>
+          </button>
+          <button class="gallery-item reveal" data-img="assets/pic2.jpeg" data-caption="Certificate 02" aria-label="Open certificate 02">
+            <img src="assets/pic2.jpeg" alt="Certificate 02" loading="lazy" />
+            <span><i data-lucide="maximize-2"></i></span>
+          </button>
+          <button class="gallery-item reveal" data-img="assets/pic3.jpeg" data-caption="Certificate 03" aria-label="Open certificate 03">
+            <img src="assets/pic3.jpeg" alt="Certificate 03" loading="lazy" />
+            <span><i data-lucide="maximize-2"></i></span>
+          </button>
+          <button class="gallery-item reveal" data-img="assets/pic4.jpeg" data-caption="Certificate 04" aria-label="Open certificate 04">
+            <img src="assets/pic4.jpeg" alt="Certificate 04" loading="lazy" />
+            <span><i data-lucide="maximize-2"></i></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+      <div class="container contact-layout reveal">
+        <div class="contact-copy">
+          <span class="section-index">06</span>
+          <h2>Ready for international web, video, and digital roles.</h2>
+          <p>
+            I am preparing this portfolio for abroad offer-letter applications,
+            junior web development roles, digital marketing technology roles,
+            video editing work, travel-tech operations, internships, remote collaboration,
+            and employer screening where real project proof matters.
+          </p>
+        </div>
+        <div class="contact-actions">
+          <a href="assets/cv.pdf" download class="contact-link magnetic">
+            <i data-lucide="file-down"></i>
+            <span>Download Resume</span>
+          </a>
+          <a href="https://github.com/omaar-x" target="_blank" rel="noopener" class="contact-link magnetic">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="" class="github-mark" />
+            <span>github.com/omaar-x</span>
+          </a>
+          <a href="https://www.tripflybd.com/" target="_blank" rel="noopener" class="contact-link magnetic">
+            <i data-lucide="building-2"></i>
+            <span>Trip Fly BD Work</span>
+          </a>
+          <a href="#projects" class="contact-link magnetic">
+            <i data-lucide="monitor-check"></i>
+            <span>View Live Projects</span>
+          </a>
+        </div>
+        <form id="lead-form" class="lead-form" autocomplete="on">
+          <div class="form-row">
+            <label for="lead-name">Full Name</label>
+            <input id="lead-name" name="name" type="text" placeholder="Your name" required />
+          </div>
+          <div class="form-row two-col">
+            <div>
+              <label for="lead-email">Email</label>
+              <input id="lead-email" name="email" type="email" placeholder="name@example.com" required />
+            </div>
+            <div>
+              <label for="lead-phone">Phone / WhatsApp</label>
+              <input id="lead-phone" name="phone" type="tel" placeholder="+880..." />
+            </div>
+          </div>
+          <div class="form-row two-col">
+            <div>
+              <label for="lead-country">Country</label>
+              <input id="lead-country" name="country" type="text" placeholder="Country" />
+            </div>
+            <div>
+              <label for="lead-interest">Opportunity Type</label>
+              <select id="lead-interest" name="interest" required>
+                <option value="" selected disabled>Select one</option>
+                <option>Web Development</option>
+                <option>Digital Marketing</option>
+                <option>AI Automation</option>
+                <option>Video Editing</option>
+                <option>Travel-Tech Role</option>
+                <option>Internship / Junior Role</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="lead-message">Message</label>
+            <textarea id="lead-message" name="message" rows="5" placeholder="Tell me about the opportunity..." required></textarea>
+          </div>
+          <input class="form-hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button type="submit" class="btn btn-primary lead-submit magnetic">
+            <i data-lucide="send"></i>
+            Send Message
+          </button>
+          <p id="lead-status" class="lead-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>(c) 2026 Omar Farque. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="https://github.com/omaar-x" target="_blank" rel="noopener" class="footer-icon-link" aria-label="Omar Farque on GitHub">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="" class="github-mark" />
+          <span>GitHub</span>
+        </a>
+        <a href="#hero" class="text-link">Back to top <i data-lucide="arrow-up"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="modal" class="modal" aria-hidden="true">
+    <button class="modal-close icon-button" aria-label="Close certificate preview">
+      <i data-lucide="x"></i>
+    </button>
+    <button class="modal-nav modal-prev icon-button" aria-label="Previous certificate">
+      <i data-lucide="chevron-left"></i>
+    </button>
+    <figure class="modal-figure">
+      <img id="modal-img" src="" alt="Certificate preview" />
+      <figcaption id="modal-caption"></figcaption>
+    </figure>
+    <button class="modal-nav modal-next icon-button" aria-label="Next certificate">
+      <i data-lucide="chevron-right"></i>
+    </button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
