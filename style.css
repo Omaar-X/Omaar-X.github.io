@@ -150,6 +150,7 @@ body.light-mode .github-mark {
 .project-card,
 .project-body,
 .stack-card,
+.interest-card,
 .stack-logo-card,
 .timeline-item,
 .achievement-panel,
@@ -1337,7 +1338,7 @@ body.light-mode .signal-track span {
 /* Stack */
 .stack-logo-grid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   gap: 12px;
   margin-bottom: 22px;
 }
@@ -1868,6 +1869,81 @@ body.light-mode .ui-screen {
   border-color: rgba(66, 232, 212, 0.28);
 }
 
+.doc-sheet {
+  top: 20px;
+  width: 86px;
+  height: 76px;
+  border-radius: var(--radius);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.24);
+}
+
+.doc-word {
+  left: 34px;
+  border: 1px solid rgba(24, 90, 189, 0.45);
+  background:
+    linear-gradient(90deg, rgba(24, 90, 189, 0.2) 0 26px, rgba(255, 255, 255, 0.12) 26px),
+    rgba(8, 11, 16, 0.72);
+}
+
+.doc-excel {
+  right: 34px;
+  border: 1px solid rgba(16, 124, 65, 0.45);
+  background:
+    linear-gradient(90deg, rgba(16, 124, 65, 0.22) 0 26px, rgba(255, 255, 255, 0.12) 26px),
+    rgba(8, 11, 16, 0.72);
+}
+
+body.light-mode .doc-word,
+body.light-mode .doc-excel {
+  background-color: rgba(255, 255, 255, 0.84);
+}
+
+.doc-sheet b {
+  top: 14px;
+  left: 36px;
+  width: 30px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--teal);
+}
+
+.doc-sheet i {
+  left: 36px;
+  right: 12px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(245, 196, 81, 0.45);
+}
+
+.doc-sheet i:nth-of-type(1) {
+  top: 32px;
+}
+
+.doc-sheet i:nth-of-type(2) {
+  top: 45px;
+}
+
+.doc-sheet i:nth-of-type(3) {
+  top: 58px;
+}
+
+.doc-excel::before,
+.doc-excel::after {
+  content: "";
+  position: absolute;
+  left: 36px;
+  right: 12px;
+  border-top: 1px solid rgba(16, 124, 65, 0.35);
+}
+
+.doc-excel::before {
+  top: 38px;
+}
+
+.doc-excel::after {
+  top: 54px;
+}
+
 .stack-card h3 {
   font-family: var(--display);
   font-size: 1.34rem;
@@ -1893,6 +1969,81 @@ body.light-mode .ui-screen {
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--teal), var(--gold));
+}
+
+/* Interests */
+.interests-section {
+  border-bottom: 1px solid var(--line);
+}
+
+.interest-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.interest-card {
+  position: relative;
+  display: grid;
+  min-height: 150px;
+  align-content: end;
+  gap: 16px;
+  overflow: hidden;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 24% 20%, rgba(66, 232, 212, 0.14), transparent 34%),
+    radial-gradient(circle at 80% 18%, rgba(245, 196, 81, 0.12), transparent 32%),
+    var(--surface);
+  box-shadow: var(--shadow);
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+body.light-mode .interest-card {
+  background:
+    radial-gradient(circle at 24% 20%, rgba(13, 148, 136, 0.15), transparent 34%),
+    radial-gradient(circle at 80% 18%, rgba(201, 138, 18, 0.12), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 252, 255, 0.9)),
+    var(--surface);
+}
+
+.interest-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(66, 232, 212, 0.46);
+}
+
+.interest-card::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+}
+
+body.light-mode .interest-card::before {
+  border-color: rgba(15, 23, 42, 0.07);
+}
+
+.interest-card svg {
+  position: relative;
+  z-index: 1;
+  width: 46px;
+  height: 46px;
+  padding: 11px;
+  border: 1px solid rgba(66, 232, 212, 0.26);
+  border-radius: var(--radius);
+  background: rgba(66, 232, 212, 0.08);
+  color: var(--teal);
+}
+
+.interest-card span {
+  position: relative;
+  z-index: 1;
+  color: var(--text);
+  font-family: var(--display);
+  font-size: 1.12rem;
+  font-weight: 800;
 }
 
 /* Proof */
@@ -2544,6 +2695,10 @@ body.light-mode #lead-message {
   .gallery {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .interest-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 650px) {
@@ -2703,6 +2858,14 @@ body.light-mode #lead-message {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .interest-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .interest-card {
+    min-height: 128px;
+  }
+
   .stack-card {
     min-height: auto;
   }
@@ -2844,6 +3007,19 @@ body.light-mode #lead-message {
 
   .video-frame {
     width: 78px;
+  }
+
+  .doc-word {
+    left: 22px;
+  }
+
+  .doc-excel {
+    right: 22px;
+  }
+
+  .interest-card {
+    min-height: 116px;
+    padding: 18px;
   }
 
   .metric-value {
@@ -2989,6 +3165,42 @@ body.light-mode #lead-message {
   .person-dot {
     width: 32px;
     height: 32px;
+  }
+
+  .doc-sheet {
+    width: 76px;
+    height: 68px;
+  }
+
+  .doc-word {
+    left: 14px;
+  }
+
+  .doc-excel {
+    right: 14px;
+  }
+
+  .doc-sheet b,
+  .doc-sheet i {
+    left: 31px;
+  }
+
+  .interest-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .interest-card {
+    min-height: 96px;
+  }
+
+  .interest-card svg {
+    width: 40px;
+    height: 40px;
+    padding: 9px;
+  }
+
+  .interest-card span {
+    font-size: 1rem;
   }
 
   .gallery {
