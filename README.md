@@ -15,17 +15,18 @@ portfolio/
 ├── style.css
 ├── script.js
 ├── README.md
+├── tools/
+│   └── build_cv.py
 └── assets/
     ├── Omar.png
     ├── omar-logo.svg
     ├── cv.pdf
-    ├── pic1.jpeg
-    ├── pic2.jpeg
-    ├── pic3.jpeg
-    ├── pic4.jpeg
+    ├── pic1.jpeg .. pic4.jpeg
     ├── preview-tripfly.png
     ├── preview-midtown.png
-    └── preview-attendance.png
+    ├── preview-rover.png
+    ├── preview-attendance.png
+    └── preview-fmz.png
 ```
 
 ## How to run
@@ -53,15 +54,37 @@ connection is useful for the full animated experience.
 - Short welcome/avatar intro after page load
 - Dynamic rotating role text
 - Dark and light mode toggle with saved preference
-- Real screenshots for live project outlook cards
+- Five live project cards with real screenshots and `Live` status badges
 - Logo-based engineering stack with programming and web technology marks
 - Video editing and creative production positioning
 - Resume-focused profile, experience, education, skills, and achievements
 - International application proof points for employer screening
 - Footer GitHub icon link
 - Certificate gallery with modal preview
+- Direct email contact, availability facts, and 24-hour response promise
+- Person JSON-LD structured data for recruiter and search visibility
 - Responsive layout for desktop, tablet, and mobile
-- Reduced-motion support
+- Reduced-motion support and a `<noscript>` fallback so content is never blank
+
+## Live projects
+
+| # | Project | Live link |
+|---|---------|-----------|
+| 1 | Trip Fly BD Website | https://www.tripflybd.com/ |
+| 2 | Midtown Aabashon Ltd | https://midtownaabashonltd.com/ |
+| 3 | Smart Attendance System | https://omaar-x.github.io/Tripfly-Smart-Attendance-System/ |
+| 4 | Rover Consultancy | https://www.roverconsultancy.com/ |
+| 5 | FMZ Trading Website | https://omaar-x.github.io/FMZ-Trading-Website-Main/index.html |
+
+## Rebuilding the CV
+
+`assets/cv.pdf` is generated, not hand-edited. Content lives in the CONTENT
+section of `tools/build_cv.py`, so the CV and the site stay in sync.
+
+```bash
+pip install reportlab
+python tools/build_cv.py
+```
 
 ## Page strategy
 
@@ -108,11 +131,13 @@ Deployed Web App URL:
 https://script.google.com/macros/s/AKfycbzh7SrCudXmd7qiZwqpAn-Ftfk-NPAXzYpr3Vzy0wrxYQ7VZBXX0mYpdOVlCaIAEdQ0JA/exec
 ```
 
-The visible contact area also uses confirmed links:
+The visible contact area uses confirmed details:
 
+- Phone / WhatsApp: `+880 1705-182933`
+- Email: `umor2026@gmail.com`
 - Resume download: `assets/cv.pdf`
 - GitHub: `https://github.com/omaar-x`
 - Trip Fly BD: `https://www.tripflybd.com/`
 
-Add personal email, phone, WhatsApp, LinkedIn, or Facebook links in the contact
-section of `index.html` when the final details are ready.
+A LinkedIn or Facebook link can be added to the same contact block in
+`index.html` when the profile URL is ready.

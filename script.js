@@ -30,13 +30,14 @@ window.addEventListener("load", () => {
     return;
   }
 
+  // Keep time-to-content short: recruiters bounce before a long intro finishes.
   window.setTimeout(() => {
     loader?.classList.add("hidden");
     if (!welcome) return;
     welcome.classList.add("active");
     welcome.setAttribute("aria-hidden", "false");
-    window.setTimeout(closeWelcome, 2600);
-  }, 850);
+    window.setTimeout(closeWelcome, 1700);
+  }, 550);
 
   welcomeSkip?.addEventListener("click", closeWelcome);
 });
@@ -319,7 +320,7 @@ if (sections.length) {
       duration: 0.8,
       ease: "power3.out",
       stagger: 0.09,
-      delay: 0.9,
+      delay: 0.55,
     });
 
     revealItems
