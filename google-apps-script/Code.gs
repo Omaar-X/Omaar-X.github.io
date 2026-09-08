@@ -1,7 +1,7 @@
 const CONFIG = {
   SPREADSHEET_ID: '1FspAHsS-AdI3dyK-qUe_5PVyXqVGC7QxH-Pw3bRKgzg',
   SHEET_NAME: 'Portfolio Leads',
-  NOTIFY_EMAIL: '',
+  NOTIFY_EMAIL: 'umor2026@gmail.com',
 };
 
 const HEADERS = [

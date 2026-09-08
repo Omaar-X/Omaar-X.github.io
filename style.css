@@ -1335,10 +1335,76 @@ body.light-mode .signal-track span {
   background: rgba(255, 255, 255, 0.72);
 }
 
+/* Author rules like `.contact-link { display: grid }` outrank the browser's own
+   [hidden] rule, which silently leaked admissions-only lines into the hiring
+   view. Anything marked hidden must stay hidden. */
+[hidden] {
+  display: none !important;
+}
+
+/* Where a project came from: paid client work reads differently to a side project. */
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: -6px;
+  color: var(--gold);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.project-meta svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+/* Live site and source code sit side by side: reviewers want both. */
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  align-items: center;
+}
+
+.text-link-quiet {
+  color: var(--muted);
+}
+
+.text-link-quiet:hover {
+  color: var(--teal);
+}
+
 /* Stack */
+.stack-group-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-family: var(--display);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.stack-group-title svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--teal);
+}
+
+.stack-logo-grid-quiet {
+  opacity: 0.72;
+}
+
 .stack-logo-grid {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
   gap: 12px;
   margin-bottom: 22px;
 }
@@ -3329,5 +3395,489 @@ body.light-mode #lead-message {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* =========================================================
+   Hiring + graduate-admissions layer
+   ========================================================= */
+
+.hero-role {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* Audience switch ------------------------------------------------------ */
+
+.audience-switch {
+  display: inline-flex;
+  gap: 4px;
+  margin: 22px 0 18px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  backdrop-filter: blur(8px);
+}
+
+.audience-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--body);
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.audience-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.audience-btn:hover {
+  color: var(--text);
+}
+
+.audience-btn.is-active {
+  background: var(--teal);
+  color: #06231f;
+  box-shadow: 0 6px 18px rgba(66, 232, 212, 0.22);
+}
+
+body.light-mode .audience-btn.is-active {
+  /* --teal on white is only 3.8:1 behind white text; --teal-deep clears AA. */
+  background: var(--teal-deep);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(13, 148, 136, 0.24);
+}
+
+.audience-btn:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.audience-pane[hidden] {
+  display: none;
+}
+
+.audience-pane.is-active {
+  animation: audience-in 0.4s ease both;
+}
+
+@keyframes audience-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.metric-value small {
+  margin-left: 2px;
+  color: var(--muted);
+  font-size: 0.42em;
+  font-weight: 700;
+}
+
+.metric-tile[hidden] {
+  display: none;
+}
+
+/* Profile meta --------------------------------------------------------- */
+
+.profile-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 26px;
+  margin-top: 30px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+
+.profile-meta-block h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.profile-meta-block h3 svg {
+  width: 16px;
+  height: 16px;
+  color: var(--teal);
+}
+
+.chips.chips-lg {
+  margin-top: 0;
+}
+
+.chips.chips-lg span {
+  min-height: 34px;
+  padding: 0 13px;
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.language-list {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+}
+
+.language-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 9px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.language-list span {
+  color: var(--text);
+  font-weight: 800;
+}
+
+.language-list b {
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.experience-card .company a {
+  color: var(--teal);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.experience-card .company a:hover {
+  border-bottom-color: currentColor;
+}
+
+.experience-card + .experience-card {
+  margin-top: 22px;
+}
+
+/* Graduate study profile ---------------------------------------------- */
+
+.grad-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.grad-statement,
+.grad-target,
+.grad-card,
+.grad-checklist {
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.grad-statement h3,
+.grad-target h3,
+.grad-card h3,
+.grad-checklist h3 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 14px;
+  font-family: var(--display);
+  font-size: 1.12rem;
+  letter-spacing: -0.01em;
+}
+
+.grad-statement h3 svg,
+.grad-target h3 svg,
+.grad-card h3 svg,
+.grad-checklist h3 svg {
+  width: 18px;
+  height: 18px;
+  color: var(--teal);
+}
+
+.grad-statement p {
+  color: var(--muted);
+  line-height: 1.72;
+}
+
+.grad-statement p + p {
+  margin-top: 14px;
+}
+
+.grad-statement em {
+  color: var(--text);
+  font-style: italic;
+}
+
+.grad-target {
+  border-left: 3px solid var(--teal);
+}
+
+.grad-facts {
+  display: grid;
+  gap: 14px;
+}
+
+.grad-facts div {
+  padding-bottom: 13px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.grad-facts div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.grad-facts dt {
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.grad-facts dd {
+  color: var(--text);
+  font-size: 0.94rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.grad-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.tick-list {
+  display: grid;
+  gap: 11px;
+  list-style: none;
+}
+
+.tick-list li {
+  position: relative;
+  padding-left: 22px;
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+
+.tick-list li::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--teal);
+  border-radius: 50%;
+}
+
+.grad-note {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.grad-checklist-head {
+  margin-bottom: 20px;
+}
+
+.grad-checklist-head p {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.dossier-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+  list-style: none;
+}
+
+.dossier-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+body.light-mode .dossier-list li {
+  background: rgba(13, 148, 136, 0.03);
+}
+
+.dossier-list svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+}
+
+.dossier-list li[data-status="ready"] svg {
+  color: var(--green);
+}
+
+.dossier-list li[data-status="progress"] svg {
+  color: var(--gold);
+}
+
+.dossier-list li[data-status="ready"] {
+  border-color: rgba(128, 213, 139, 0.32);
+}
+
+.dossier-list b {
+  display: block;
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.dossier-list span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.grad-cta {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.grad-cta a {
+  color: var(--teal);
+  font-weight: 800;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+@media (max-width: 900px) {
+  .grad-layout,
+  .profile-meta {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .audience-switch {
+    width: 100%;
+    flex-direction: column;
+    border-radius: var(--radius);
+  }
+
+  .audience-btn {
+    justify-content: center;
+    border-radius: calc(var(--radius) - 2px);
+  }
+
+  .grad-statement,
+  .grad-target,
+  .grad-card,
+  .grad-checklist {
+    padding: 20px;
+  }
+}
+
+/* Print: the page doubles as a one-click application document ----------- */
+
+@media print {
+  #loader,
+  #welcome-intro,
+  #cursor,
+  #cursor-ring,
+  #bg-canvas,
+  #scroll-progress,
+  .page-grid,
+  #navbar,
+  .hero-scene,
+  .signal-band,
+  .audience-switch,
+  .hero-actions,
+  .nav-actions,
+  .gallery,
+  .lead-form,
+  .modal,
+  .interests-section {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #101820 !important;
+  }
+
+  .audience-pane[hidden] {
+    display: block !important;
+  }
+
+  .metric-tile[hidden] {
+    display: flex !important;
+  }
+
+  .section {
+    padding: 18px 0 !important;
+    break-inside: avoid;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .experience-card,
+  .project-card,
+  .grad-statement,
+  .grad-target,
+  .grad-card,
+  .grad-checklist,
+  .timeline-item,
+  .achievement-panel {
+    break-inside: avoid;
+    box-shadow: none !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.72em;
+    font-weight: 400;
+    word-break: break-all;
   }
 }

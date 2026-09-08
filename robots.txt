@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://omaar-x.github.io/sitemap.xml

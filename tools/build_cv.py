@@ -8,6 +8,7 @@ Content lives in the CONTENT section below so the CV can be regenerated
 whenever the portfolio is updated.
 """
 
+import html
 import os
 
 from reportlab.lib.colors import HexColor, white
@@ -22,7 +23,8 @@ from reportlab.platypus import Paragraph
 # ---------------------------------------------------------------- setup ----
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, "assets", "cv.pdf")
+OUT = os.path.join(ROOT, "assets", "cv.pdf")               # hiring version
+OUT_ACADEMIC = os.path.join(ROOT, "assets", "academic-cv.pdf")  # admissions version
 
 PAGE_W, PAGE_H = A4
 
@@ -107,8 +109,19 @@ def draw_photo(c, cx, cy, r, image):
     c.circle(cx, cy, r + 6.0, stroke=1, fill=0)
 
 
+def plain(text):
+    """Entity-decode a string bound for canvas.drawString.
+
+    Content is authored in the same mini-HTML that Paragraph() accepts, but the
+    canvas draws bytes literally -- so "Mar 2026 &ndash; Present" reached the CV
+    with the entity still showing. Anything drawn raw must come through here.
+    """
+    return html.unescape(text).replace(" ", " ")
+
+
 def tracked(c, x, y, text, font, size, color, spacing=1.0, align="left"):
     """drawString with letter spacing (canvas.setCharSpace is not in every build)."""
+    text = plain(text)
     width = pdfmetrics.stringWidth(text, font, size) + spacing * max(0, len(text) - 1)
     if align == "right":
         x -= width
@@ -176,7 +189,9 @@ class Spacer(Block):
 
 
 class SectionTitle(Block):
-    gap_before = 13.0
+    # 13.0 pushed the last section onto a near-empty third page once
+    # Publications was added; 10.5 keeps the same visual rhythm in two.
+    gap_before = 10.5
 
     def __init__(self, text, sidebar=False):
         self.text = text.upper()
@@ -302,7 +317,7 @@ class Entry(Block):
 
         c.setFont(REG, 8.2)
         c.setFillColor(MUTED)
-        c.drawRightString(x + width, y - 9.6, self.meta)
+        c.drawRightString(x + width, y - 9.6, plain(self.meta))
 
         meta_w = c.stringWidth(self.meta, REG, 8.2) + 10
         title.wrapOn(None, width - meta_w, 2000)
@@ -432,7 +447,7 @@ class Facts(Block):
                 c.line(x + cell * i, top - h + 9, x + cell * i, top - 9)
             c.setFont(BOLD, 14.5)
             c.setFillColor(INK)
-            c.drawCentredString(cx, top - 22, value)
+            c.drawCentredString(cx, top - 22, plain(value))
             tracked(c, cx, top - 34, label.upper(), REG, 7.3, MUTED, 0.5, align="center")
         return h
 
@@ -440,7 +455,8 @@ class Facts(Block):
 # ------------------------------------------------------------- content ----
 
 NAME = "OMAR FARQUE"
-TITLE = "Travel Operations &amp; Air Ticketing (Sabre GDS)  |  Web Developer  |  Digital Marketer"
+TITLE = ("B.Sc. Computer Science &amp; Engineering  |  Web Developer  |  Sabre GDS Air Ticketing  |  "
+         "Graphic Designer  |  Video Editor  |  Digital Marketer")
 PHONE = "+880 1705-182933"
 EMAIL = "umor2026@gmail.com"
 
@@ -451,32 +467,59 @@ CONTACT_BAR = [
     ("globe", "omaar-x.github.io"),
 ]
 
-SUMMARY = (
-    "Travel operations professional and final-year Computer Science &amp; Engineering student with hands-on "
-    "<b>Sabre GDS air ticketing</b> experience at a Dhaka travel agency. I work across the full customer journey - "
-    "booking and reservation support, clear and patient customer communication, and the websites and digital "
-    "campaigns that bring customers in. <b>Five live production websites and web apps</b> delivered with public "
-    "links. Looking for a role where accuracy, service quality, and practical digital skills all matter."
+_SUMMARY_CORE = (
+    "<b>Computer Science &amp; Engineering</b> graduate (B.Sc. completed July 2026, CGPA 3.24 / 4.00) who already "
+    "ships to production: <b>five paid client websites and web apps</b> built, deployed, and maintained for real "
+    "businesses, each with a public URL and public source. Worked in travel operations at a Dhaka agency from March "
+    "to August 2026, booking air tickets on <b>Sabre GDS</b> and handling reservation support and customer "
+    "communication in Bangla and English. "
+)
+
+SUMMARY = _SUMMARY_CORE + (
+    "Seeking a role where accuracy, clear communication, and practical engineering skill all matter."
+)
+
+SUMMARY_ACADEMIC = _SUMMARY_CORE + (
+    "Seeking a role where accuracy, clear communication, and practical engineering skill all matter, "
+    "while preparing to apply for M.Sc. study abroad."
 )
 
 EXPERIENCE = Entry(
     "Travel Operations &amp; Ticketing Assistant",
     "Trip Fly BD &mdash; Travel Agency, Dhaka",
-    "5 months",
+    "Mar 2026 &ndash; Aug 2026",
     bullets=[
-        "Booked and managed <b>domestic and international air tickets on Sabre GDS</b>, covering fare display, "
-        "reservation creation, and booking updates.",
-        "Handled itinerary details, reservation queries, and travel documentation support so customers always "
-        "knew the exact status of their booking.",
-        "Explained fare options, schedules, and travel conditions clearly across phone, chat, and in-person "
-        "conversations, in Bangla and English.",
-        "Coordinated between customers and the internal team so confirmations, changes, and follow-ups moved "
-        "without delay.",
+        "Issued and managed domestic and international air tickets end to end on <b>Sabre GDS</b> &mdash; fare "
+        "display, reservation creation, reissue, and booking updates &mdash; with fare accuracy treated as "
+        "non-negotiable.",
+        "Owned each booking after it was made: itinerary changes, reservation queries, and travel documentation, "
+        "so no customer had to chase their own status.",
+        "Resolved fare, schedule, and travel-condition questions by phone, chat, and in person in <b>Bangla and "
+        "English</b>, converting enquiries into confirmed bookings.",
+        "Coordinated between customers and the internal team so confirmations, changes, and refunds closed inside "
+        "the same working day.",
+        "Identified that daily attendance was still tracked on paper and <b>built the Smart Attendance System</b> "
+        "unprompted &mdash; a role-based web app now in daily use, replacing the manual register.",
         "Built and maintained the agency's <b>website sections and landing pages</b> (HTML, CSS, JavaScript), "
-        "sharpening service clarity and consultation paths.",
-        "Supported <b>SEO structure, social content, and digital brand presentation</b> for travel service marketing.",
-        "Developed an internal <b>Smart Attendance System</b> web app that digitised daily attendance operations "
-        "for the team.",
+        "shipping changes without waiting on an outside vendor.",
+    ],
+)
+
+EXPERIENCE_2 = Entry(
+    "Independent Web Developer (Freelance)",
+    "Paid client projects &mdash; travel, real estate, consultancy, trading",
+    "Project-based, ongoing",
+    bullets=[
+        "Delivered <b>five paid client websites and web apps</b> across travel, real estate, consultancy, and "
+        "trading &mdash; every one still live in production, with a public URL and public source.",
+        "Took each project from requirements to launch as the <b>sole developer</b>: design, build, content "
+        "structure, deployment, client handover, and ongoing fixes.",
+        "Built mobile-first, responsive layouts with accessible navigation, so the sites stay usable on the "
+        "low-end Android devices most customers browse from.",
+        "Structured pages for <b>SEO</b> &mdash; semantic markup, metadata, structured data, sitemaps &mdash; so "
+        "clients reach customers through organic search rather than paid ads alone.",
+        "Replaced paid form services with a <b>Google Apps Script + Sheets</b> lead-capture backend, giving "
+        "clients reliable enquiry handling at zero running cost.",
     ],
 )
 
@@ -484,32 +527,27 @@ PROJECTS = [
     Project(
         "Trip Fly BD &mdash; Travel Agency Website",
         "www.tripflybd.com",
-        "Full travel agency website experience: strong hero messaging, clear service positioning, consultation "
-        "CTAs, and trust-focused brand design for a real customer-facing business.",
+        "Customer-facing travel site: service positioning, consultation CTAs, trust-focused design.",
     ),
     Project(
         "Midtown Aabashon Ltd",
         "midtownaabashonltd.com",
-        "Real-estate corporate website with clear property positioning, project discovery, responsive layout, "
-        "and high-intent contact paths.",
+        "Real-estate corporate site: project discovery and high-intent contact paths.",
     ),
     Project(
         "Rover Consultancy",
         "www.roverconsultancy.com",
-        "Professional consultancy website with focused service presentation, trust-building content, and clean "
-        "routes for client enquiries.",
+        "Consultancy site with focused service presentation and clean enquiry routes.",
     ),
     Project(
         "Smart Attendance System &mdash; Trip Fly BD",
         "omaar-x.github.io/Tripfly-Smart-Attendance-System",
-        "Lightweight internal web app for daily attendance operations: role-based sign-in, practical workflow "
-        "design, and a polished, fast interface.",
+        "Internal web app for daily attendance: role-based sign-in, fast practical workflow.",
     ),
     Project(
         "FMZ Trading Website",
         "omaar-x.github.io/FMZ-Trading-Website-Main",
-        "Trading-focused website with a sharp visual system, fully responsive sections, and a live GitHub Pages "
-        "deployment.",
+        "Trading site with a responsive visual system, deployed on GitHub Pages.",
     ),
 ]
 
@@ -517,8 +555,9 @@ EDUCATION = [
     Entry(
         "B.Sc. in Computer Science &amp; Engineering",
         "Bangladesh University of Business and Technology (BUBT)",
-        "Expected 2026",
-        note="CGPA 3.24 / 4.00 &mdash; programming, web systems, software thinking, and applied computing.",
+        "Completed July 2026",
+        note="CGPA 3.24 / 4.00 &mdash; programming, web systems, and applied computing. English medium of "
+        "instruction; transcripts on request.",
     ),
     Entry(
         "Higher Secondary Certificate (Science)",
@@ -534,21 +573,55 @@ EDUCATION = [
     ),
 ]
 
-PROOF = [
-    "<b>BUBT ICPC 2025</b> &mdash; contest participant.",
-    "<b>BIUPC Programming Contest</b> &mdash; participant.",
-    "<b>BUBT Innovtex Hackathon</b> &mdash; event volunteer.",
-    "<b>Live project proof</b> &mdash; five production websites and web apps with public URLs.",
-    "<b>Certificate gallery</b> &mdash; scanned certificates viewable at omaar-x.github.io.",
+PUBLICATIONS = [
+    (
+        "TumorMultiNet: A Statistically Validated Hybrid Deep Learning Framework for Brain Tumor "
+        "MRI Classification and Segmentation on BRISC2025 with Explainable AI",
+        "IEEE &mdash; accepted",
+        "Hybrid deep learning framework for brain tumour MRI classification and segmentation, "
+        "statistically validated on the BRISC2025 dataset, with explainable-AI interpretation of "
+        "model decisions.",
+    ),
+    (
+        "Smart IoT First Aid Box",
+        "In preparation",
+        "IoT-based first aid system for automated supply monitoring and emergency response support.",
+    ),
 ]
 
-TARGETS = [
-    "Air ticketing, reservations, and travel agency operations (Sabre GDS)",
-    "Customer support, service desk, and client relationship roles",
-    "Junior web developer / front-end developer",
-    "Digital marketing, SEO, and social content execution",
-    "Travel-tech, IT support, and web operations",
+PROOF = [
+    "<b>BUBT ICPC 2025</b> and <b>BIUPC Programming Contest</b> &mdash; contest participant; "
+    "<b>BUBT Innovtex Hackathon</b> &mdash; event volunteer.",
+    "<b>Verifiable proof</b> &mdash; five production deployments with public URLs and public source; "
+    "certificates viewable at omaar-x.github.io.",
 ]
+
+PROOF_HIRING = [
+    "<b>BUBT ICPC 2025</b>, <b>BIUPC Programming Contest</b> &mdash; participant; <b>BUBT Innovtex "
+    "Hackathon</b> &mdash; volunteer. Five production deployments with public URLs and source; "
+    "certificates at omaar-x.github.io.",
+]
+
+RESEARCH_LINE = (
+    "<b>Research:</b> one IEEE paper accepted (brain tumour MRI classification and segmentation with "
+    "explainable AI); a second in preparation."
+)
+
+TARGETS = [
+    "Junior web / front-end developer",
+    "IT support &amp; web operations",
+    "Travel-tech &amp; airline ticketing",
+    "Customer support &amp; service desk",
+    "Digital marketing &amp; SEO",
+    "Graduate trainee / internship",
+]
+
+GRAD_OBJECTIVE = (
+    "Applying for <b>M.Sc. / M.Eng. study abroad, 2027 intake</b> in computer science, software engineering, "
+    "information systems, or data science. <b>IELTS scheduled shortly.</b> Research interests: applied machine "
+    "learning for service automation, web-system performance and accessibility, and workflow automation for "
+    "small businesses. Seeking scholarship- or assistantship-funded places."
+)
 
 STRENGTHS = [
     "Sabre GDS air ticketing",
@@ -585,39 +658,43 @@ LANGUAGES = [
 
 INTERESTS = "Cooking &nbsp;·&nbsp; Cricket &nbsp;·&nbsp; Football &nbsp;·&nbsp; Video editing &nbsp;·&nbsp; Photography"
 
-FOOTER_NOTE = "Omar Farque  ·  Curriculum Vitae  ·  Updated August 2026"
+FOOTER_NOTE = "Omar Farque  ·  Resume  ·  Updated September 2026  ·  omaar-x.github.io"
+FOOTER_NOTE_ACADEMIC = "Omar Farque  ·  Academic CV  ·  Updated September 2026  ·  omaar-x.github.io"
 
 PHOTO = None  # loaded in build()
+TOTAL_PAGES = 2  # set in build() once the layout is known
+ACADEMIC = False  # set in build(); switches the two audience-specific sections
 
 
 def main_blocks():
-    return [
+    blocks = [
         SectionTitle("Professional Summary"),
-        Para(SUMMARY, gap_before=2.0),
+        Para(SUMMARY_ACADEMIC if ACADEMIC else SUMMARY, gap_before=2.0),
+    ]
+    # An admissions reader wants the study objective up front, next to the
+    # summary -- not stranded on a near-empty final page.
+    if ACADEMIC:
+        blocks += [
+            SectionTitle("Graduate Study Objective"),
+            Para(GRAD_OBJECTIVE, gap_before=2.0),
+        ]
+    blocks += [
         SectionTitle("Professional Experience"),
         EXPERIENCE,
+        EXPERIENCE_2,
+        SectionTitle("Publications"),
+        *[
+            Entry(title, venue, "", note=desc)
+            for title, venue, desc in PUBLICATIONS
+        ],
         SectionTitle("Selected Live Projects"),
-        Para(
-            "Five live builds, every one publicly reachable. Links are clickable in this PDF.",
-            style(8.4, 11.6, color=MUTED, font=ITAL),
-            gap_before=2.0,
-        ),
         *PROJECTS,
         SectionTitle("Education"),
-        *EDUCATION,
+        *(EDUCATION if ACADEMIC else EDUCATION[:-1]),
         SectionTitle("Contests, Certificates & Proof"),
-        Bullets(PROOF),
-        SectionTitle("Career Focus"),
-        Bullets(TARGETS),
-        Facts(
-            [
-                ("5", "live projects"),
-                ("5 mo", "agency experience"),
-                ("2026", "B.Sc. CSE"),
-                ("3.24", "CGPA / 4.00"),
-            ]
-        ),
+        Bullets(PROOF if ACADEMIC else PROOF_HIRING),
     ]
+    return blocks
 
 
 def side_blocks():
@@ -632,6 +709,8 @@ def side_blocks():
                 ("GitHub", "github.com/omaar-x"),
             ]
         ),
+        SectionTitle("Target Roles", sidebar=True),
+        Bullets(TARGETS, s=S_SIDE_BULLET, marker="\u2013", gap=2.6),
         SectionTitle("Core Strengths", sidebar=True),
         Bullets(STRENGTHS, s=S_SIDE_BULLET, marker="\u2013", gap=2.6),
         SectionTitle("Technical Skills", sidebar=True),
@@ -642,14 +721,21 @@ def side_blocks():
         SideList(LANGUAGES),
         SectionTitle("Availability", sidebar=True),
         Para(
-            "Open to full-time, internship, and remote opportunities in Bangladesh and abroad.",
+            "Available immediately; open to full-time and remote opportunities in Bangladesh and abroad. "
+            "Willing to relocate internationally.",
             S_SIDE,
             gap_before=2.0,
         ),
         SectionTitle("Interests", sidebar=True),
         Para(INTERESTS, S_SIDE, gap_before=2.0),
         SectionTitle("References", sidebar=True),
-        Para("Available on request.", S_SIDE, gap_before=2.0),
+        Para(
+            "<b>Dr. Md. Rajibul Islam</b><br/>Chairman, Department of Data Science &amp; "
+            "Engineering<br/>Bangladesh University of Business and Technology (BUBT)<br/>"
+            "Contact details on request.",
+            S_SIDE,
+            gap_before=2.0,
+        ),
     ]
 
 
@@ -681,6 +767,7 @@ def draw_header(c, page):
                 c.drawString(x, y, "|")
                 x += c.stringWidth("|", REG, 8.6) + 9
             c.setFillColor(HexColor("#cfe0e6"))
+            text = plain(text)
             c.drawString(x, y, text)
             x += c.stringWidth(text, REG, 8.6) + 9
         return PAGE_H - h
@@ -709,8 +796,8 @@ def draw_chrome(c, page, top):
     c.line(SIDE_PAD, FOOTER_Y, PAGE_W - 40, FOOTER_Y)
     c.setFont(REG, 7.6)
     c.setFillColor(MUTED)
-    c.drawString(SIDE_PAD, FOOTER_Y - 12, FOOTER_NOTE)
-    c.drawRightString(PAGE_W - 40, FOOTER_Y - 12, f"Page {page} of 2")
+    c.drawString(SIDE_PAD, FOOTER_Y - 12, FOOTER_NOTE_ACADEMIC if ACADEMIC else FOOTER_NOTE)
+    c.drawRightString(PAGE_W - 40, FOOTER_Y - 12, f"Page {page} of {TOTAL_PAGES}")
 
 
 def flow(blocks, x, width, tops, bottom):
@@ -752,18 +839,28 @@ def _draw_on(page, block, x, y, width):
     _PAGE_BUFFERS.setdefault(page, []).append((block, x, y, width))
 
 
-def build():
-    global PHOTO
+def build(academic=False):
+    global PHOTO, ACADEMIC
+    ACADEMIC = academic
     PHOTO = headshot()
 
-    c = pdfcanvas.Canvas(OUT, pagesize=A4)
-    c.setTitle("Omar Farque - Curriculum Vitae")
+    out = OUT_ACADEMIC if academic else OUT
+    c = pdfcanvas.Canvas(out, pagesize=A4)
+    c.setTitle("Omar Farque - Academic CV" if academic else "Omar Farque - Resume")
     c.setAuthor("Omar Farque")
-    c.setSubject("Travel Operations & Air Ticketing (Sabre GDS) | Web Developer | Digital Marketer")
-    c.setKeywords("Omar Farque, Sabre GDS, air ticketing, travel operations, web developer, SEO, Bangladesh")
+    c.setSubject("B.Sc. Computer Science & Engineering | Web Developer | Sabre GDS Air Ticketing")
+    c.setKeywords(
+        "Omar Farque, computer science, software engineering, web developer, Sabre GDS, air ticketing, "
+        "SEO, Bangladesh" + (", masters applicant, MSc, graduate admission" if academic else "")
+    )
 
-    tops_main = [PAGE_H - HEADER_H_FIRST - 16, PAGE_H - HEADER_H_REST - 22]
-    tops_side = [PAGE_H - HEADER_H_FIRST - 16, PAGE_H - HEADER_H_REST - 22]
+    # Page slots. Keep a spare so new content spills onto a page instead of
+    # being silently dropped; unused slots never get drawn.
+    MAX_PAGES = 3
+    first_top = PAGE_H - HEADER_H_FIRST - 16
+    rest_top = PAGE_H - HEADER_H_REST - 22
+    tops_main = [first_top] + [rest_top] * (MAX_PAGES - 1)
+    tops_side = [first_top] + [rest_top] * (MAX_PAGES - 1)
     bottom = FOOTER_Y + 16
 
     _PAGE_BUFFERS.clear()
@@ -771,6 +868,9 @@ def build():
     flow(side_blocks(), SIDE_X, SIDE_W, tops_side, bottom)
 
     pages = max(_PAGE_BUFFERS) + 1 if _PAGE_BUFFERS else 1
+
+    global TOTAL_PAGES
+    TOTAL_PAGES = pages
     for page in range(pages):
         top = draw_header(c, page + 1)
         draw_chrome(c, page + 1, top)
@@ -779,8 +879,9 @@ def build():
         c.showPage()
 
     c.save()
-    print(f"Wrote {OUT} ({pages} pages)")
+    print(f"Wrote {out} ({pages} pages)")
 
 
 if __name__ == "__main__":
-    build()
+    build(academic=False)   # assets/cv.pdf          -> employers
+    build(academic=True)    # assets/academic-cv.pdf -> admissions offices

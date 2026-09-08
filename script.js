@@ -209,13 +209,13 @@ refreshIcons();
   if (!target || prefersReducedMotion) return;
 
   const phrases = [
-    "premium web portfolios",
+    "production-ready web experiences",
     "responsive business websites",
-    "AI automation workflows",
+    "internal tools that save real hours",
+    "AI and automation workflows",
     "SEO-ready landing pages",
-    "polished video edits",
     "travel-tech web systems",
-    "digital brand experiences",
+    "software worth putting my name on",
   ];
 
   let phraseIndex = 0;
@@ -244,6 +244,74 @@ refreshIcons();
   }
 
   window.setTimeout(typeNext, 1300);
+})();
+
+/* Hero audience switch: recruiters and admissions reviewers want different proof. */
+(function initAudienceSwitch() {
+  const buttons = Array.from(document.querySelectorAll(".audience-btn"));
+  if (!buttons.length) return;
+
+  const panes = Array.from(document.querySelectorAll("[data-audience-pane]"));
+  const tiles = Array.from(document.querySelectorAll("[data-audience-tile]"));
+  // Whole sections, nav entries and single lines that belong to one audience only.
+  // An employer reading "applying for a Master's abroad" reads it as a leaving date,
+  // so the graduate track stays out of the hiring view entirely.
+  const zones = Array.from(document.querySelectorAll("[data-audience-only]"));
+
+  function apply(audience) {
+    buttons.forEach((btn) => {
+      const on = btn.dataset.audience === audience;
+      btn.classList.toggle("is-active", on);
+      btn.setAttribute("aria-selected", String(on));
+    });
+    panes.forEach((pane) => {
+      const on = pane.dataset.audiencePane === audience;
+      pane.classList.toggle("is-active", on);
+      pane.hidden = !on;
+    });
+    tiles.forEach((tile) => {
+      tile.hidden = tile.dataset.audienceTile !== audience;
+    });
+    zones.forEach((zone) => {
+      zone.hidden = zone.dataset.audienceOnly !== audience;
+    });
+    try {
+      window.localStorage.setItem("of-audience", audience);
+    } catch (err) {
+      /* storage blocked: the switch still works for this visit */
+    }
+  }
+
+  buttons.forEach((btn, index) => {
+    btn.addEventListener("click", () => apply(btn.dataset.audience));
+    btn.addEventListener("keydown", (event) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      event.preventDefault();
+      const step = event.key === "ArrowRight" ? 1 : -1;
+      const next = buttons[(index + step + buttons.length) % buttons.length];
+      next.focus();
+      apply(next.dataset.audience);
+    });
+  });
+
+  // An admissions reviewer coming back should not have to re-pick their view.
+  let saved = null;
+  try {
+    saved = window.localStorage.getItem("of-audience");
+  } catch (err) {
+    saved = null;
+  }
+  // A direct link to the graduate section wins over a stored preference — otherwise
+  // that visitor lands on a section the hiring view keeps hidden.
+  if (window.location.hash === "#graduate" || saved === "academic") {
+    apply("academic");
+  }
+})();
+
+/* Footer year */
+(function initFooterYear() {
+  const el = document.getElementById("footer-year");
+  if (el) el.textContent = String(new Date().getFullYear());
 })();
 
 /* Navigation */
