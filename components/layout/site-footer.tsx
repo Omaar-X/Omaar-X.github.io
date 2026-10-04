@@ -8,14 +8,14 @@ import { profile } from "@/data/profile";
 import { copyrightYear } from "@/lib/site";
 
 const linkClasses =
-  "inline-flex min-h-11 items-center text-[0.9375rem] text-muted transition-colors duration-300 hover:text-foreground";
+  "inline-flex min-h-10 items-center text-[0.9375rem] md:min-h-9 text-muted transition-colors duration-300 hover:text-foreground";
 
 export function SiteFooter() {
   return (
-    <footer data-surface="plum" className="defer-render bg-(--panel) text-foreground [--defer-h:29rem] md:[--defer-h:31rem] lg:[--defer-h:26rem]">
-      <Container className="flex flex-col gap-fluid-lg border-t border-border pt-fluid-lg pb-[max(var(--fluid-md),env(safe-area-inset-bottom))]">
-        <div className="editorial-grid gap-y-fluid-md">
-          <div className="col-span-full flex flex-col gap-fluid-sm lg:col-span-5">
+    <footer data-surface="plum" className="defer-render bg-(--panel) text-foreground [--defer-h:25rem] lg:[--defer-h:19rem]">
+      <Container className="flex flex-col gap-fluid-md border-t border-border pt-fluid-md pb-[max(var(--fluid-sm),env(safe-area-inset-bottom))]">
+        <div className="editorial-grid gap-y-fluid-sm">
+          <div className="col-span-full flex flex-col gap-2 lg:col-span-5">
             <div>
               <BrandLockup />
             </div>
@@ -62,7 +62,7 @@ export function SiteFooter() {
           </p>
           <a
             href="#"
-            className="group/top inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-medium text-foreground"
+            className="group/top inline-flex min-h-10 items-center gap-2 text-[0.9375rem] font-medium text-foreground"
           >
             <span className="link-underline">Back to top</span>
             <ArrowUp
