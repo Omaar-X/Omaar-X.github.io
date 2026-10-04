@@ -1,0 +1,103 @@
+@layer components {
+  .backdrop {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: -1;
+    height: var(--viewport-height-large);
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgb(255 255 255 / 0.55), transparent 55%);
+  }
+
+  .noise-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0 0.12 0 0 0 1.4 -0.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+
+  @media (prefers-contrast: more) {
+    .backdrop {
+      background: none;
+    }
+
+    .noise-overlay {
+      display: none;
+    }
+  }
+
+  /* Decorative list separators, kept out of the DOM (and hidden from assistive tech). */
+  .dot-list > li:not(:last-child)::after {
+    content: " ·";
+    content: " ·" / "";
+    color: var(--dot-color, currentColor);
+  }
+
+  .plus-list > li + li::before {
+    content: "+";
+    content: "+" / "";
+    color: var(--subtle);
+  }
+
+  /* Three window dots for BrowserFrame as one element instead of three. */
+  .browser-dots {
+    width: 1.875rem;
+    height: 0.375rem;
+    background: radial-gradient(circle at 0.1875rem 0.1875rem, var(--border-strong) 0.1875rem, transparent 0.21875rem)
+      0 0 / 0.75rem 0.375rem repeat-x;
+  }
+
+  /* Below-the-fold sections skip rendering until they near the viewport; --defer-h is the
+     placeholder block size until the real one is known (`auto` remembers it afterwards). */
+  .defer-render {
+    content-visibility: auto;
+    contain-intrinsic-block-size: auto var(--defer-h, 60rem);
+  }
+
+  /* Anchor navigation needs real heights above the target, otherwise it lands in the wrong place.
+     Fragment loads match :target; same-page link clicks set data-render-all (site-navigation.tsx). */
+  html[data-render-all] .defer-render,
+  html:has(:target) .defer-render {
+    content-visibility: visible;
+  }
+
+  /* Hero portrait depth: written by HeroDepth, 5px at most. */
+  .hero-depth-ring {
+    translate: calc(var(--hx, 0) * -2px) calc(var(--hy, 0) * -2px);
+  }
+
+  .hero-depth-photo {
+    translate: calc(var(--hx, 0) * 5px) calc(var(--hy, 0) * 5px);
+  }
+
+  .link-underline {
+    padding-bottom: 0.125em;
+    background-image:
+      linear-gradient(currentColor, currentColor),
+      linear-gradient(var(--border-strong), var(--border-strong));
+    background-position:
+      0 100%,
+      0 100%;
+    background-repeat: no-repeat;
+    background-size:
+      0% 1px,
+      100% 1px;
+    transition: background-size var(--duration-slow) var(--easing-editorial);
+  }
+
+  .text-link:focus-visible .link-underline {
+    background-size:
+      100% 1px,
+      100% 1px;
+  }
+
+  @media (hover: hover) {
+    .text-link:hover .link-underline {
+      background-size:
+        100% 1px,
+        100% 1px;
+    }
+  }
+}

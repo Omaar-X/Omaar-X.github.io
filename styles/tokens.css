@@ -1,0 +1,208 @@
+/* Lavender Editorial Luxury — light lavender, soft white, deep charcoal, muted purple. */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  --background: #f7f4fc;
+  --background-secondary: #f0eaf8;
+  --surface: #ffffff;
+  --surface-soft: #faf8fd;
+  --surface-elevated: #faf8fd;
+
+  --foreground: #19171d;
+  --muted: #6f6878;
+  --subtle: #665f70;
+
+  --border: #ddd5e8;
+  --border-strong: #c7bdd5;
+
+  --accent: #78609a;
+  --accent-strong: #56406f;
+  --accent-soft: #b7a5cf;
+  --accent-tint: rgb(120 96 154 / 0.1);
+  --on-accent: #ffffff;
+
+  --lavender: #d9cdea;
+  --lavender-light: #eee7f7;
+
+  --mauve: #b9a7c9;
+  --mauve-ink: #6b5589;
+  --mauve-tint: rgb(185 167 201 / 0.22);
+  --highlight: #b9a7c9;
+
+  --focus-ring: #56406f;
+  --selection: rgb(120 96 154 / 0.2);
+
+  --shade: #19171d;
+  --grain-opacity: 0.04;
+
+  --elevation-raised:
+    0 1px 2px rgb(60 40 90 / 0.04), 0 18px 40px -28px rgb(60 40 90 / 0.2);
+}
+
+/* Featured Work panels, Education, Capabilities (Research) and Contact pick a surface with data-surface. */
+[data-surface="white"] {
+  --panel: #ffffff;
+}
+
+[data-surface="mauve"] {
+  --panel: #e6ddf1;
+  --surface: #eee7f5;
+  --muted: #5b5367;
+  --subtle: #5b5367;
+  --border: #d2c5e2;
+  --border-strong: #b9a9cf;
+  --mauve-ink: #5e4880;
+}
+
+[data-surface="plum"] {
+  color-scheme: dark;
+  --panel: #3b2b4d;
+  --background: #3b2b4d;
+  --surface: #46345b;
+  --surface-elevated: #4e3b65;
+  --foreground: #fbf8f4;
+  --muted: #d4cadf;
+  --subtle: #c3b7d2;
+  --border: rgb(251 248 244 / 0.16);
+  --border-strong: rgb(251 248 244 / 0.3);
+  --accent: #e2d8f0;
+  --accent-strong: #f1eaf8;
+  --accent-tint: rgb(226 216 240 / 0.12);
+  --on-accent: #3b2b4d;
+  --mauve: #b9a7c9;
+  --mauve-ink: #d3c3e6;
+  --mauve-tint: rgb(185 167 201 / 0.16);
+  --focus-ring: #fbf8f4;
+  --selection: rgb(251 248 244 / 0.24);
+}
+
+/* Capabilities: one tone per discipline. */
+[data-tone="build"] {
+  --tone-tint: rgb(217 205 234 / 0.4);
+  --tone-ink: #6b5589;
+}
+
+[data-tone="grow"] {
+  --tone-tint: rgb(228 206 222 / 0.45);
+  --tone-ink: #86507a;
+}
+
+[data-tone="create"] {
+  --tone-tint: rgb(217 205 234 / 0.4);
+  --tone-ink: #6b4f8a;
+}
+
+[data-tone="research"] {
+  --tone-tint: rgb(185 167 201 / 0.3);
+  --tone-ink: #3b2b4d;
+}
+
+[data-tone="automate"] {
+  --tone-tint: rgb(220 214 246 / 0.5);
+  --tone-ink: #5c52a0;
+}
+
+:root {
+  --font-family-display: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-family-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-family-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+  --display-stretch: 88%;
+
+  --step-display: clamp(3rem, 1.75rem + 6.25vw, 8rem);
+  --step-statement: clamp(2.75rem, 1.9rem + 4.4vw, 6.5rem);
+  --step-statement-sm: clamp(2.125rem, 1.5rem + 2.8vw, 4.25rem);
+  --step-title: clamp(2.5rem, 1.6rem + 3.6vw, 5.5rem);
+  --step-roles: clamp(2.625rem, 1rem + 7vw, 4.75rem);
+  --step-mega: clamp(3.75rem, 2rem + 8.5vw, 10.5rem);
+  --step-h2: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+  --step-h3: clamp(1.375rem, 1.22rem + 0.78vw, 2rem);
+  --step-body-lg: clamp(1.125rem, 1.0625rem + 0.3125vw, 1.375rem);
+  --step-body: clamp(1rem, 0.984rem + 0.078vw, 1.0625rem);
+  --step-small: 0.875rem;
+  --step-eyebrow: 0.75rem;
+  --step-micro: 0.6875rem;
+
+  --gutter: clamp(1.25rem, 0.75rem + 2.5vw, 3rem);
+  --grid-gap: clamp(1rem, 0.75rem + 1.25vw, 2rem);
+  --section-space: clamp(5rem, 3.75rem + 6.25vw, 10rem);
+  --section-space-compact: clamp(3.5rem, 2.875rem + 3.125vw, 6rem);
+  --fluid-xs: clamp(0.5rem, 0.4375rem + 0.3125vw, 0.75rem);
+  --fluid-sm: clamp(0.75rem, 0.625rem + 0.625vw, 1.25rem);
+  --fluid-md: clamp(1.25rem, 1rem + 1.25vw, 2.25rem);
+  --fluid-lg: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+  --fluid-xl: clamp(3rem, 2rem + 5vw, 7rem);
+
+  --page-max: 90rem;
+  --wide-max: 120rem;
+  --prose-max: 40rem;
+
+
+  --header-height: 4rem;
+  --header-offset: calc(var(--header-height) + env(safe-area-inset-top));
+  --viewport-height: 100vh;
+  --viewport-height-stable: 100vh;
+  --viewport-height-large: 100vh;
+
+  --easing-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+  --easing-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 160ms;
+  --duration-base: 280ms;
+  --duration-slow: 640ms;
+}
+
+@media (width >= 56rem) {
+  :root {
+    --header-height: 4.5rem;
+  }
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --viewport-height: 100dvh;
+    --viewport-height-stable: 100svh;
+    --viewport-height-large: 100lvh;
+  }
+}
+
+@property --span {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 4;
+}
+
+@property --span-md {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 8;
+}
+
+@property --span-lg {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 12;
+}
+
+@property --start {
+  syntax: "<integer> | auto";
+  inherits: false;
+  initial-value: auto;
+}
+
+@property --start-md {
+  syntax: "<integer> | auto";
+  inherits: false;
+  initial-value: auto;
+}
+
+@property --start-lg {
+  syntax: "<integer> | auto";
+  inherits: false;
+  initial-value: auto;
+}
+
+@property --stack-index {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}

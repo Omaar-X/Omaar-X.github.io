@@ -1,0 +1,58 @@
+@theme {
+  --color-*: initial;
+  --radius-*: initial;
+
+  --radius-xs: 0.1875rem;
+  --radius-sm: 0.3125rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.875rem;
+
+  --breakpoint-nav: 56rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-tint: var(--accent-tint);
+  --color-on-accent: var(--on-accent);
+  --color-surface-soft: var(--surface-soft);
+  --color-lavender: var(--lavender);
+  --color-lavender-light: var(--lavender-light);
+  --color-mauve: var(--mauve);
+  --color-mauve-ink: var(--mauve-ink);
+  --color-mauve-tint: var(--mauve-tint);
+  --color-highlight: var(--highlight);
+
+  --font-display: var(--font-family-display);
+  --font-sans: var(--font-family-sans);
+  --font-serif: var(--font-family-serif);
+
+  --spacing-gutter: var(--gutter);
+  --spacing-grid-gap: var(--grid-gap);
+  --spacing-section: var(--section-space);
+  --spacing-section-compact: var(--section-space-compact);
+  --spacing-fluid-xs: var(--fluid-xs);
+  --spacing-fluid-sm: var(--fluid-sm);
+  --spacing-fluid-md: var(--fluid-md);
+  --spacing-fluid-lg: var(--fluid-lg);
+  --spacing-fluid-xl: var(--fluid-xl);
+
+  --container-page: var(--page-max);
+  --container-wide: var(--wide-max);
+  --container-prose: var(--prose-max);
+
+  --shadow-elevated: var(--elevation-raised);
+
+  --ease-editorial: var(--easing-editorial);
+  --ease-out-expo: var(--easing-out-expo);
+}

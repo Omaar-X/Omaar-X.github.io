@@ -1,0 +1,60 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env*
+!.env.example
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# python (legacy CV tooling)
+__pycache__/
+*.pyc
+
+# local QA captures and test/benchmark output
+/.qa/
+/lh-out/
+lighthouse-*.json
+lighthouse-*.html
+.lighthouseci/
+/test-results/
+/playwright-report/
+
+# temporary files
+*.tmp
+*.log
+.tmp/
+Thumbs.db
+.claude/settings.local.json

@@ -1,216 +1,208 @@
-# Omar Farque | Portfolio, CV & Master's Application Profile
+# Omar Faruk — Portfolio
 
-A one-page portfolio for Omar Farque, built with HTML, CSS, JavaScript,
-Three.js, GSAP, and Lucide icons. The site serves two audiences at once:
+Personal portfolio of Omar Faruk — web developer, digital marketer and AI / computer-vision researcher.
 
-- **Employers** — production experience, five live project links, a downloadable
-  CV, and clearly stated target roles.
-- **Admissions committees** — academic record, a Graduate Study Profile with
-  research interests and target programmes, and a live status board for the
-  application dossier.
+- **Live (production URL):** https://omaar-x.github.io/
+- **Design:** *Lavender Editorial Luxury* — a Foraji-inspired editorial layout (large serif statements, generous whitespace, thin dividers, image-led project features) in Omar's own palette: light lavender, white, deep charcoal, muted purple and deep plum.
+- **Stack:** Next.js 16 (App Router, Turbopack) · React 19 · TypeScript (strict) · Tailwind CSS 4 · GSAP + ScrollTrigger (lazy, Work only) · Lucide · `next/font` · `next/image`
+- **Hosting:** a static export (`out/`) deployed to GitHub Pages by a GitHub Actions workflow.
 
-A switch in the hero lets a visitor pick which framing they see; the choice is
-remembered in `localStorage`, and `#graduate` in the URL opens the academic view
-directly.
+## Run, build, export
 
-## Folder structure
-
-```text
-portfolio/
-├── index.html
-├── style.css
-├── script.js
-├── robots.txt
-├── sitemap.xml
-├── README.md
-├── tools/
-│   └── build_cv.py
-└── assets/
-    ├── Omar.png
-    ├── omar-logo.svg
-    ├── cv.pdf              (designed CV - send to a human)
-    ├── cv-ats.pdf          (plain 1-page resume - upload to job portals)
-    ├── cv-full.pdf         (full profile CV - single column, all sections)
-    ├── academic-cv.pdf     (academic CV - admissions)
-    ├── pic1.jpeg .. pic4.jpeg
-    ├── preview-tripfly.png
-    ├── preview-midtown.png
-    ├── preview-rover.png
-    ├── preview-attendance.png
-    └── preview-fmz.png
-```
-
-## How to run
-
-No build step is required. For the best result, serve the folder locally:
+Requires Node 20.9+ (CI uses Node 22).
 
 ```bash
-cd portfolio
-python -m http.server 8000
+npm install
+npm run dev            # http://localhost:3000
+npm run typecheck      # route typegen + tsc --noEmit
+npm run lint           # ESLint (flat config)
+npm run build          # production build (server output)
+npm run start          # serve that build
+npm run export         # static export into out/  (cross-platform STATIC_EXPORT=true build)
+npm run serve:export   # serve out/ at http://localhost:3200, like GitHub Pages does
+npm run images         # regenerate optimised WebP images from assets/source/
 ```
 
-Then open:
+`npm run export` is the same as `STATIC_EXPORT=true npm run build`; it switches `next.config.ts` to
+`output: "export"` and writes plain HTML/CSS/JS to `out/`. Every route uses a trailing slash
+(`trailingSlash: true`), images are served as shipped (`images.unoptimized` in export mode), and no
+`basePath` is set because `Omaar-X.github.io` is a user site served from the domain root.
 
-```text
-http://localhost:8000
-```
+`npm run serve:export` ([`tools/serve-export.mjs`](tools/serve-export.mjs)) is a zero-dependency server that
+mimics GitHub Pages: directory redirects to a trailing slash, `404.html` with a real 404 status, gzip for text
+assets and MIME types by extension. Use it (not `npm run start`) to check what will actually be deployed.
 
-The page loads Three.js, GSAP, Google Fonts, and Lucide from CDNs, so an internet
-connection is useful for the full animated experience.
+## Site structure
 
-## Page sections
+One home page, one case study, and generated metadata routes.
 
-| # | Section | Anchor |
-|---|---------|--------|
-| 01 | Professional Profile — target roles, languages | `#profile` |
-| 02 | Experience — Trip Fly BD, independent web development | `#experience` |
-| 03 | Live Work — five deployed projects | `#projects` |
-| 04 | Professional Skills | `#stack` |
-| 05 | Education & Academic Record — timeline, achievements, certificates | `#proof` |
-| 06 | Graduate Study Profile — Master's application | `#graduate` |
-| 07 | Interests & Creative Life | `#interests` |
-| 08 | Contact | `#contact` |
+| Route | What it is |
+|---|---|
+| `/` | The portfolio — all sections below |
+| `/work/trm-holidays/` | TRM Holidays case study (the only published case study) |
+| `/sitemap.xml`, `/robots.txt` | Generated from `data/`; indexable routes only |
+| `/opengraph-image.png` | Social card (static file in `public/`) |
+| `/cv/*.pdf` | CV downloads |
 
-## Highlights
+### Home page sections
 
-- Hero audience switch: recruiter view and admissions view, each with its own
-  intro copy, call-to-action buttons, and metric tiles
-- Premium 3D hero with Omar.png blended into the visual system
-- Custom OF monogram logo used in favicon, loader, and navbar
-- Short welcome/avatar intro after page load
-- Dynamic rotating role text
-- Dark and light mode toggle with saved preference
-- Five live project cards with real screenshots and `Live` status badges
-- Graduate Study Profile: why a Master's, target programmes, research interests,
-  preferred destinations, and a colour-coded application dossier status list
-- Logo-based engineering stack with programming and web technology marks
-- Certificate gallery with modal preview
-- Contact form routed to Google Sheets, split into hiring and academic enquiry
-  types
-- `Person` + `ProfilePage` JSON-LD structured data, `robots.txt`, and
-  `sitemap.xml` for recruiter and search visibility
-- Print stylesheet: `Ctrl/Cmd + P` produces a clean document with both audience
-  views expanded and link URLs written out
-- Responsive layout for desktop, tablet, and mobile
-- Reduced-motion support and a `<noscript>` fallback so content is never blank
+The page opens on a **creativity-first** sequence: the visitor sees who Omar is and, on the same first screen, a live
+picture of what he can do. Order: Hero → Creative Skill Showcase → Selected Work → More Work → Experience → Research →
+About → Contact.
 
-## Live projects
+| # | Section | Anchor | Notes |
+|---|---|---|---|
+| — | **Hero + navigation** | `#hero` | Fixed header (links from 56rem, full-screen menu below), name, *Web Developer / Digital Marketer / Creative Technologist* in large serif, circular portrait, one line of positioning (development · digital growth · automation · creative production · AI research), CV download. No skill chips and no paragraph. |
+| — | **Creative Skill Showcase** | `#showcase` | Ten skills, each with its own drawing; sits directly under the hero (see below) |
+| 01 | **Selected Work** | `#work` | "Ideas turned into digital products." **SADIRA**, Midtown Aabashon Ltd., TRM Holidays and Trip Fly BD as a sticky, layered stack with large project visuals (SADIRA also shows two close-ups of the live store) |
+| 02 | **More Work** | `#work` | Quiet editorial rows: FMZ Trading, Smart Attendance System, Rover Consultancy |
+| 03 | **Experience** | `#experience` | Midtown Aabashon Ltd. (current), Trip Fly BD (March 2026 — August 2026) |
+| 04 | **Research** | `#research` | TumorMultiNet thesis with its four-step model pipeline, the accepted paper and *Smart First Aid Box* (submitted to ICCIT) |
+| 05 | **About** | `#about` | Personal statement, short biography, current focus, education and credentials, and a compact **Tools & technologies** index |
+| 06 | **Contact + Footer** | `#contact` | Deep plum. Email, phone, WhatsApp, GitHub and CV. There is **no contact form** |
 
-| # | Project | Live link |
-|---|---------|-----------|
-| 1 | Trip Fly BD Website | https://www.tripflybd.com/ |
-| 2 | Midtown Aabashon Ltd | https://midtownaabashonltd.com/ |
-| 3 | Smart Attendance System | https://omaar-x.github.io/Tripfly-Smart-Attendance-System/ |
-| 4 | Rover Consultancy | https://www.roverconsultancy.com/ |
-| 5 | FMZ Trading Website | https://omaar-x.github.io/FMZ-Trading-Website-Main/index.html |
+There is deliberately **no second, large "Capabilities" section** lower down: the range is shown once, at the top, and the
+tools index in About is a small static list.
 
-## Rebuilding the CV
+**Creative Skill Showcase** (`data/skills.ts`, `components/sections/showcase`, `styles/showcase.css`)
 
-Three PDFs, all generated - never hand-edited.
+Ten skills, each a real-text name plus a drawing: Web Development, Digital Marketing, Meta / Facebook Ads (audience →
+campaign → creative → landing page), Google Ads (search query → ad → landing page), AI Automation (input → AI → workflow →
+output), Video Editing (a timeline), Photography (a focus frame on the rule of thirds), Visual Design / Canva (a layered
+composition), Business Automation (manual task → Apps Script / Sheets → automated system) and AI / Computer Vision Research
+(data → model → prediction → explainability). No fake analytics numbers are drawn.
 
-`tools/build_cv.py` produces two designed, two-column CVs in one run:
-`assets/cv.pdf` (employers) and `assets/academic-cv.pdf` (admissions). They
-share all content except the Graduate Study Objective section and the closing
-line of the summary, which appear only in the academic build.
+- **One stage, many scenes.** `creative-showcase.tsx` is the only client component. Scenes are percent-coordinate worlds
+  (`scenes.tsx`, `drawings.tsx`, `scene-kit.tsx`); nodes, planes and lines read one `--build` (0 → 1) CSS variable, so a
+  scene "draws itself" and every swap, scroll step or swipe replays it. No WebGL and no Three.js (crisp real text,
+  accessibility and Lighthouse cost).
+- **Auto swap.** After the page has loaded and settled, the stage cycles about every 3 s through Web → Marketing → AI
+  Automation → Video → Photography → Research, updating the typography and the drawing together. It stops for good on any
+  interaction or scroll start, and while the section is off screen, the tab is hidden, or reduced motion is on.
+- **Desktop pin (≥ 64rem, window ≥ 45rem tall).** Native `position: sticky`, about **1.9 viewport heights** in total: stages
+  **Build → Grow → Automate → Create → Research**. *Create* puts video, photography and design on one canvas with Word,
+  Excel and Google Workspace as a supporting strip. The panel is pinned vertically centred, then releases straight into
+  Selected Work. The page is never intercepted: no wheel hooks, no fake smooth scrolling, no snapping.
+- **Tablet (48–64rem).** Drawing on top, copy below, pinned about 1.7 viewport heights when the window is tall enough for the
+  whole stack (≥ 58rem); otherwise it flows unpinned.
+- **Phones (< 48rem).** No pin. A native scroll-snap carousel of all ten skills with a visible "Swipe to explore" hint and
+  progress dots; every swipe shows its drawing, and only the scenes next to the current slide are rendered.
+- **Skill index.** A real `tablist` of the ten skills (arrow keys, roving tabindex) that doubles as the visitor's control.
+- **Reduced motion or no JavaScript.** The live stage and carousel are hidden and a static composition shows all five groups
+  and every discipline name in its finished state. Skills are always real text in the DOM; drawings are `aria-hidden`.
 
-`tools/build_full_cv.py` produces `assets/cv-full.pdf`: single column, every
-section including Publications, two pages. Follows the section order Omar
-chose. Use it when someone wants the complete record in one readable document.
+### Case studies
 
-`tools/build_ats_cv.py` produces `assets/cv-ats.pdf`: one page, single column,
-no photo, standard headings, base-14 fonts. Use it for online applications -
-Workday, Greenhouse, Taleo, LinkedIn - where a parser reads the file before any
-person does and a sidebar layout gets scrambled. Send `cv.pdf` when a human
-receives it directly. It imports its content from `build_cv.py`, so run
-`build_cv.py` first after a content change.
+Case studies are data-driven. A project in `data/projects.ts` with `caseStudy.status === "published"` gets a
+page at `/work/[slug]/`, a sitemap entry and a "View case study" link. `dynamicParams = false`, so unpublished
+slugs (Trip Fly BD and Midtown Aabashon are *in preparation*) return 404 and nothing can link to them.
 
-Content lives in the CONTENT
-section of `tools/build_cv.py`, so the CV and the site stay in sync.
+URL policy: every route except `/` ends with a trailing slash. `lib/routes.ts` builds case-study paths so
+canonical, Open Graph, sitemap, structured data and internal links always agree.
+
+## CVs
+
+Three PDF variants live in [`public/cv/`](public/cv/) and are described in `profile.cv` ([`data/profile.ts`](data/profile.ts)):
+
+| Key | File | Audience |
+|---|---|---|
+| `cv.general` | `Omar-Faruk-General-CV.pdf` | **Default.** Used by the hero, header, About, Contact and footer |
+| `cv.webDigital` | `Omar-Faruk-Web-Digital-CV.pdf` | Web development, digital marketing and business-systems roles |
+| `cv.research` | `Omar-Faruk-Research-CV.pdf` | Research, academic and Master's applications |
+
+Only the General CV is linked from the UI; the other two are available in `profile.cv`. The PDFs are generated:
 
 ```bash
-pip install reportlab
-python tools/build_cv.py
+python tools/cv/build_cvs.py        # build the three CVs into public/cv/ (needs reportlab)
+python tools/cv/verify_cvs.py       # inspect the generated PDFs (needs PyMuPDF)
+python tools/cv/verify_sources.py   # cross-check CV content against data/*.ts
 ```
 
-The CV is laid out to fit **two pages**. The layout engine has a spare third
-page slot so new content spills over instead of being silently dropped — if the
-build reports 3 pages, trim content until it reports 2 again. A
-`! column overflow` warning means content was dropped entirely and must be fixed.
+CV copy lives in `tools/cv/content.py`. Earlier CV PDFs are kept in `legacy/cv-archive/`.
 
-## Keeping content honest
+## Images
 
-Current status, as stated across the site and CV:
+The static export has no image optimiser, so images are optimised **before** they are committed.
 
-- **B.Sc. CSE completed July 2026** (BUBT, CGPA 3.24 / 4.00).
-- **Trip Fly BD is a current role**, started **1 March 2026** and still running,
-  so bullets are in present tense and the period reads `March 2026 – Present`.
-  If the role ends, close the range and switch the bullets to past tense.
-- **IELTS is scheduled, not sat.** Once the result is in, flip the dossier item
-  in `#graduate` to `data-status="ready"`, swap `data-lucide="loader"` for
-  `check-circle-2`, and put the band score in the `<span>`.
+- `assets/source/images/**` — original screenshots and portrait (master files, never imported by the site)
+- `assets/images/**` — generated WebP files the site imports (sharp, quality 82; the portrait is capped at 800 px)
 
-Still to confirm before sharing widely:
+Add or replace a master, run `npm run images`, then import the WebP from `assets/images/`. Static imports
+give `next/image` the intrinsic size and a blur placeholder. The hero portrait is eager with
+`fetchPriority="high"`; everything else is lazy.
 
-- **Preferred destinations**, **programmes of interest**, and the **2027 intake**
-  are stated targets, not commitments — edit them in `#graduate` as plans firm up.
-- There is **no LinkedIn link**. Add it to the contact block and to `sameAs` in
-  the `Person` JSON-LD when the profile is ready.
+The social card is `public/opengraph-image.png` and is referenced explicitly in the metadata (`ogImage` in
+`lib/site.ts`), so it has a plain `.png` URL on GitHub Pages and appears on every page.
 
-## Page strategy
-
-This portfolio is intentionally kept as a single-page resume experience for
-international applications, because recruiters can scan profile, work, projects,
-proof, and contact in one flow. If detailed case studies are added later, good
-separate pages would be `projects.html` for deep project breakdowns and
-`certificates.html` for full proof/certificate documentation.
-
-## Contact details
-
-The contact section includes a Google Sheets lead form. The Apps Script handler
-is in:
+## Structure
 
 ```text
-google-apps-script/Code.gs
+app/                  routes: home, work/[slug], plus robots, sitemap, icon
+components/
+  brand/              BrandMark (OF monogram), BrandWordmark, BrandLockup
+  navigation/         SiteHeader (server) → SiteNavigation + MobileMenu (client, mounted only when open)
+  sections/           hero · showcase (scenes, drawings, controller, tools index) · work · experience · research · about · contact
+  case-study/         CaseStudyLayout, CaseStudySection, CaseStudyScreens
+  layout/             Container, Grid, PageShell, Backdrop, StickyStack, SiteFooter
+  ui/                 Button, TextLink, SmartLink, StatusBadge, Eyebrow, SectionIntro,
+                      BrowserFrame, NoiseOverlay, SkipLink
+  seo/                JsonLd
+data/                 single source of truth for all content (profile, projects, experience, research,
+                      skills, education, credentials, contact, socials, navigation)
+hooks/                useActiveSection
+lib/                  site config, routes, metadata helpers, structured data, fonts, gsap, cn
+styles/               tokens, Tailwind theme mapping, base, typography, layout, effects, motion, work, showcase
+assets/               source/ masters and generated images/
+public/               cv/ PDFs, opengraph-image.png, .nojekyll
+tools/                cv/ (CV generator + verifiers), images/ (WebP build), build-export.mjs, serve-export.mjs
+google-apps-script/   legacy lead-capture handler (unused by the new site)
+legacy/               previous static site — archive only, no longer deployed
 ```
 
-To connect it:
+## Design system
 
-1. Open your Apps Script project:
-   `https://script.google.com/u/0/home/projects/1XyKzg-c6mATBQGugkDJLkSePi31pm2CS2duPrihrkjLwITjxPsBl3_d_/edit`
-2. Paste `google-apps-script/Code.gs` into `Code.gs`.
-3. Run `setupLeadSheet()` once to create the colorful `Portfolio Leads` sheet.
-4. Deploy as Web app.
-5. Copy the `/exec` Web App URL.
-6. Paste it into `CONTACT_WEB_APP_URL` in `script.js`.
+All colour, type, spacing and layout values are semantic CSS variables in [`styles/tokens.css`](styles/tokens.css),
+mapped to Tailwind utilities in [`styles/theme.css`](styles/theme.css). Components never use raw colours.
 
-Apps Script project ID:
+- **Palette** — `--background #F7F4FC`, `--background-secondary #F0EAF8`, `--surface #FFFFFF`, `--foreground #19171D`,
+  `--muted #6F6878`, `--accent #78609A`, `--accent-strong #56406F`, `--lavender #D9CDEA`, deep plum panel `#3B2B4D`.
+  Panels choose a surface with `data-surface="white|mauve|plum"`. There is no dark mode and no green.
+- **Type** — Instrument Sans (display) and Geist (body, UI); Instrument Serif only for large statements, titles,
+  hero roles and showcase skill names (`type-statement`, `type-title`, `type-roles`, `type-mega`).
+- **Layout** — `Container`, a 4/8/12-column editorial grid, fluid section rhythm, safe-area aware.
+  `SectionIntro` gives every section the same editorial opener.
+- **Motion** — CSS-first and gated by `prefers-reduced-motion` and `@supports (animation-timeline: view())`:
+  hero entrance and a 5px pointer depth on the portrait, heading rise, hairline draw, screenshot reveal, hero
+  parallax. JavaScript motion: the Work stack's ScrollTrigger recede (lazily imported when Work approaches the
+  viewport, never under reduced motion) and the showcase controller above. Scrolling is always native.
+- **Below-the-fold rendering** — `.defer-render` (`content-visibility: auto` with an `auto` intrinsic size) on
+  More Work, Experience, Research, About, Contact and the footer. Fragment loads (`:target`) and
+  same-page link clicks (`data-render-all`) render everything first, so anchors always land correctly.
 
-```text
-1XyKzg-c6mATBQGugkDJLkSePi31pm2CS2duPrihrkjLwITjxPsBl3_d_
-```
+## Deployment
 
-Connected Google Sheet:
+Production is a static export on GitHub Pages, built by
+[`.github/workflows/static.yml`](.github/workflows/static.yml) on every push to `main` (or by hand from the
+Actions tab):
 
-```text
-https://docs.google.com/spreadsheets/d/1FspAHsS-AdI3dyK-qUe_5PVyXqVGC7QxH-Pw3bRKgzg/edit
-```
+1. checkout → Node 22 → `npm ci`
+2. `npm run typecheck` and `npm run lint`
+3. `npm run build` with `STATIC_EXPORT=true`
+4. upload **`out/`** (never the repository root, never `legacy/`) → deploy to GitHub Pages
 
-Deployed Web App URL:
+One-time setup: *Settings → Pages → Build and deployment → Source: GitHub Actions*.
+`NEXT_PUBLIC_SITE_URL` is set in the workflow; elsewhere it falls back to Vercel's production URL and then
+`https://omaar-x.github.io`. See [`.env.example`](.env.example).
 
-```text
-https://script.google.com/macros/s/AKfycbzh7SrCudXmd7qiZwqpAn-Ftfk-NPAXzYpr3Vzy0wrxYQ7VZBXX0mYpdOVlCaIAEdQ0JA/exec
-```
+Before pushing, verify the export locally: `npm run export && npm run serve:export`.
 
-The visible contact area uses confirmed details:
+## Maintenance notes
 
-- Phone / WhatsApp: `+880 1705-182933`
-- Email: `umor2026@gmail.com`
-- Resume download (employers): `assets/cv.pdf`
-- ATS resume for job portals: `assets/cv-ats.pdf`
-- Full profile CV: `assets/cv-full.pdf`
-- Academic CV download (admissions): `assets/academic-cv.pdf`
-- GitHub: `https://github.com/omaar-x`
-- Trip Fly BD: `https://www.tripflybd.com/`
-
-A LinkedIn or Facebook link can be added to the same contact block in
-`index.html` when the profile URL is ready.
+- **Content** lives in `data/`. Statuses are shown exactly as recorded: *submitted* is never shown as *accepted*,
+  and anything unconfirmed stays empty rather than guessed.
+- **New case study:** add `caseStudy: { status: "published", … }` to the project; the route, sitemap entry and links follow.
+- **New skill:** edit `data/skills.ts`, then run `python tools/cv/verify_sources.py`.
+- **Updating the social card:** replace `public/opengraph-image.png` (1200 × 630).
+- **`legacy/`** is the previous static site, kept as an archive. Do not deploy it.
+- `npm audit` reports no production vulnerabilities. A dev-only advisory in `braces` (via `eslint-config-next`)
+  is open; its fix is a breaking downgrade, so it is intentionally not applied.
