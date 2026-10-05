@@ -1,7 +1,6 @@
 import { Container } from "@/components/layout/container";
+import { Accent } from "@/components/ui/accent";
 import { SectionIntro } from "@/components/ui/section-intro";
-import { TextLink } from "@/components/ui/text-link";
-import { sectionHref } from "@/data/navigation";
 import { publications, thesis } from "@/data/research";
 import { ResearchPublication } from "./research-publication";
 import { ResearchThesis } from "./research-thesis";
@@ -11,21 +10,18 @@ export function ResearchSection() {
     <section
       id="research"
       aria-labelledby="research-title"
-      className="defer-render relative bg-[linear-gradient(to_bottom,transparent,var(--background-secondary)_20rem,var(--background-secondary)_calc(100%-16rem),transparent)] pt-section-compact pb-section [--defer-h:175rem] md:[--defer-h:143rem] lg:[--defer-h:154rem]"
+      className="defer-render relative bg-[linear-gradient(to_bottom,transparent,var(--background-secondary)_20rem,var(--background-secondary)_calc(100%-16rem),transparent)] pt-section pb-section [--defer-h:175rem] md:[--defer-h:143rem] lg:[--defer-h:154rem]"
     >
       <Container className="flex flex-col gap-fluid-xl">
         <SectionIntro
           id="research-title"
-          index="04"
           label="Research"
-          meta={
+          size="sm"
+          title={
             <>
-              <span className="text-foreground">01</span> Thesis ·{" "}
-              <span className="text-foreground">{String(publications.length).padStart(2, "0")}</span> Papers
+              Researching <Accent>intelligent</Accent> systems with real&#8209;world applications.
             </>
           }
-          size="sm"
-          title="Researching intelligent systems with real&#8209;world applications."
           lead="Work spanning medical image analysis, deep learning, computer vision and practical intelligent systems."
         />
 
@@ -45,10 +41,6 @@ export function ResearchSection() {
           </ol>
         </div>
 
-        <div className="rule-top flex items-center justify-between gap-6 pt-fluid-sm">
-          <p className="type-micro text-subtle">Next</p>
-          <TextLink href={sectionHref("about")}>About</TextLink>
-        </div>
       </Container>
     </section>
   );

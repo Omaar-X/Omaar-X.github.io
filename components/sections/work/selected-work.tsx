@@ -1,42 +1,87 @@
+import { ArrowUpRight } from "lucide-react";
+import type { CSSProperties } from "react";
 import { Container } from "@/components/layout/container";
-import { StickyStack, StickyStackItem } from "@/components/layout/sticky-stack";
+import { Accent } from "@/components/ui/accent";
+import { Button } from "@/components/ui/button";
 import { SectionIntro } from "@/components/ui/section-intro";
-import { featuredWork } from "@/data/projects";
-import { WorkPanel } from "./work-panel";
-import { WorkStackMotion } from "./work-stack-motion";
+import { SmartLink } from "@/components/ui/smart-link";
+import { featuredWork, moreWork } from "@/data/projects";
+import { profile } from "@/data/profile";
+import { WorkCard } from "./work-card";
 
-const stackId = "work-stack";
-const pad = (value: number) => String(value).padStart(2, "0");
+const github = profile.socials.find((social) => social.id === "github");
 
+/**
+ * All projects as a sticky stack: each card pins near the top while the next one slides up over
+ * it, a little lower each time, so the previous cards stay visible as a pile of edges.
+ */
 export function SelectedWork() {
-  const total = featuredWork.length;
+  const cards = [
+    ...featuredWork.map(({ project, context }) => ({
+      project,
+      note: context?.label === "Current role" ? "Current role" : undefined,
+    })),
+    ...moreWork.map((project) => ({ project, note: undefined })),
+  ];
 
   return (
     <section
       aria-labelledby="work-title"
-      className="relative bg-[linear-gradient(to_bottom,transparent,var(--background-secondary)_22rem,var(--background-secondary)_calc(100%-18rem),transparent)] pt-section pb-section-compact"
+      className="relative pt-section-compact pb-section-compact"
+      style={{ "--work-card-h": "min(34rem, calc(100svh - var(--header-offset) - 8rem))" } as CSSProperties}
     >
-      <Container className="flex flex-col gap-fluid-xl">
+      <Container className="flex flex-col gap-fluid-lg">
         <SectionIntro
           id="work-title"
-          index="01"
-          label="Selected Work"
-          meta={
+          label="Portfolio projects"
+          title={
             <>
-              <span className="text-foreground">{pad(total)}</span> Featured Projects
+              Selected <Accent>Work</Accent>
             </>
           }
-          title="Ideas turned into digital products."
+          action={
+            github && (
+              <Button variant="secondary" size="sm" href={github.href} icon={ArrowUpRight}>
+                View all on GitHub
+              </Button>
+            )
+          }
         />
 
-        <StickyStack id={stackId} aria-label="Featured projects" className="work-stack">
-          {featuredWork.map((work, index) => (
-            <StickyStackItem key={work.project.slug} index={index}>
-              <WorkPanel {...work} index={index} total={total} />
-            </StickyStackItem>
+        <ol aria-label="Projects" className="flex flex-col gap-fluid-md">
+          {cards.map(({ project, note }, index) => (
+            <li
+              key={project.slug}
+              className="sticky"
+              style={{ top: `calc(var(--header-offset) + 1rem + ${index * 0.9}rem)` }}
+            >
+              <WorkCard
+                project={project}
+                tone={index % 2 === 0 ? "lavender" : "plum"}
+                index={index}
+                total={cards.length}
+                note={note}
+              />
+            </li>
           ))}
-        </StickyStack>
-        <WorkStackMotion stackId={stackId} />
+        </ol>
+
+        {github && (
+          <SmartLink
+            href={github.href}
+            className="group/more flex items-center justify-between gap-4 rounded-card border border-dashed border-border-strong bg-surface/70 p-6 transition-colors duration-500 hover:border-accent hover:bg-surface sm:p-8"
+          >
+            <span className="flex flex-col gap-1">
+              <span className="type-kicker text-muted">Explore the archive</span>
+              <span className="type-title">
+                More on <Accent>GitHub</Accent>
+              </span>
+            </span>
+            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-ink text-on-ink transition-transform duration-500 ease-editorial group-hover/more:rotate-45">
+              <ArrowUpRight aria-hidden strokeWidth={1.75} className="size-5" />
+            </span>
+          </SmartLink>
+        )}
       </Container>
     </section>
   );

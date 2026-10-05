@@ -3,8 +3,8 @@
 Personal portfolio of Omar Faruk — web developer, digital marketer and AI / computer-vision researcher.
 
 - **Live (production URL):** https://omaar-x.github.io/
-- **Design:** *Lavender Editorial Luxury* — a Foraji-inspired editorial layout (large serif statements, generous whitespace, thin dividers, image-led project features) in Omar's own palette: light lavender, white, deep charcoal, muted purple and deep plum.
-- **Stack:** Next.js 16 (App Router, Turbopack) · React 19 · TypeScript (strict) · Tailwind CSS 4 · GSAP + ScrollTrigger (lazy, Work only) · Lucide · `next/font` · `next/image`
+- **Design:** a layout modelled on [sforaji.com](https://www.sforaji.com) — huge expanded-sans name split around a tilted device, a floating pill navigation, hand-written kickers over bold headings with one accent word, rounded image cards, stacking process cards, a fact marquee and an outlined-name footer — in Omar's own palette: light lavender, white, deep charcoal, muted purple and deep plum.
+- **Stack:** Next.js 16 (App Router, Turbopack) · React 19 · TypeScript (strict) · Tailwind CSS 4 · Lucide · `next/font` · `next/image`
 - **Hosting:** a static export (`out/`) deployed to GitHub Pages by a GitHub Actions workflow.
 
 ## Run, build, export
@@ -46,50 +46,25 @@ One home page, one case study, and generated metadata routes.
 
 ### Home page sections
 
-The page opens on a **creativity-first** sequence: the visitor sees who Omar is and, on the same first screen, a live
-picture of what he can do. Order: Hero → Creative Skill Showcase → Selected Work → More Work → Experience → Research →
-About → Contact.
+Order: Hero → Selected Work → How I work (skills) → About → Highlights marquee → Career → Research → Contact → Footer.
+Selected Work comes straight after the hero (as on the reference site's phone layout), so projects are one scroll away.
 
-| # | Section | Anchor | Notes |
-|---|---|---|---|
-| — | **Hero + navigation** | `#hero` | Fixed header (links from 56rem, full-screen menu below), name, *Web Developer / Digital Marketer / Creative Technologist* in large serif, circular portrait, one line of positioning (development · digital growth · automation · creative production · AI research), CV download. No skill chips and no paragraph. |
-| — | **Creative Skill Showcase** | `#showcase` | Ten skills, each with its own drawing; sits directly under the hero (see below) |
-| 01 | **Selected Work** | `#work` | "Ideas turned into digital products." **SADIRA**, Midtown Aabashon Ltd., TRM Holidays and Trip Fly BD as a sticky, layered stack with large project visuals (SADIRA also shows two close-ups of the live store) |
-| 02 | **More Work** | `#work` | Quiet editorial rows: FMZ Trading, Smart Attendance System, Rover Consultancy |
-| 03 | **Experience** | `#experience` | Midtown Aabashon Ltd. (current), Trip Fly BD (March 2026 — August 2026) |
-| 04 | **Research** | `#research` | TumorMultiNet thesis with its four-step model pipeline, the accepted paper and *Smart First Aid Box* (submitted to ICCIT) |
-| 05 | **About** | `#about` | Personal statement, short biography, current focus, education and credentials, and a compact **Tools & technologies** index |
-| 06 | **Contact + Footer** | `#contact` | Deep plum. Email, phone, WhatsApp, GitHub and CV. There is **no contact form** |
+| Section | Anchor | Notes |
+|---|---|---|
+| **Intro loader** | — | First visit of a session only: the OF monogram draws itself, the name rises, a counter and bar run to 100, then the lavender panel wipes up (about 2.2s, CSS only — `components/layout/intro-loader.tsx`, `styles/intro.css`). The hero's entrance waits for it via `--intro-offset`. The inline script in `app/layout.tsx` sets `html[data-intro-seen]` for later page loads; reduced motion never shows it. |
+| **Hero** | `#hero` | Drifting aurora glow over a dot grid. `OMAR` and `FARUK` in expanded uppercase (`type-display`), letters rising one by one, split around a tilted tablet that cross-fades five real project screens (CSS only), tilts toward the pointer and carries two floating glass stat chips; a "Scroll to explore" cue. Avatar with a live dot and "Open to conversations" written on a slow orbit; `profile.heroTagline`, current role @ company, Dhaka with live local time. Phones stack it all and add *View work* / *Download CV*. |
+| **Navigation** | — | Desktop: logo + *Resume* top bar, and a dark floating pill at the bottom (home, Work, Skills, About, Career, Research, *Contact me*). Phones: top bar + full-screen menu. |
+| **Selected Work** | `#work` | "Selected **Work**": all seven projects as a **sticky stack** — each wide card pins below the header while the next slides up over it, slightly lower each time (inline `top` per card; card height `--work-card-h`). Cards alternate light lavender (dark text) and plum (light text), with the live screen floating on the right, a cursor spotlight, status, tech chips and one stretched link (case study, else live site). Phones get a tall card. A dashed "More on GitHub" link follows. |
+| **How I work** | `#skills` | Light lavender panel. "How I build **products**": five stage cards (Build, Grow, Automate, Create, Research — `skillGroups` in `data/skills.ts`) that stack on desktop as they scroll. Each white card has its skills as text plus an animated illustration on a small dark screen (`skill-visuals.tsx`, `styles/skills.css`): code becoming a page; search, Meta and social flowing into a landing page and a customer; a trigger running through Apps Script into a sheet; a rule-of-thirds photo, design layers and an edit timeline; an MRI slice through the thesis models to a Grad-CAM map. No numbers are drawn. |
+| **About** | `#about` | Promise heading (`profile.heroStatement`), short bio, *Let's talk* / *View resume*, contact icon buttons, portrait in a tilted frame; then Education, Credentials and the Tools index. |
+| **Highlights** | — | Two crossed, counter-scrolling strips: the disciplines in giant filled/outlined type, and the facts from `data/proof.ts`. |
+| **Career** | `#experience` | "My **impact** over the years": numbered rows (role, company, period) that open to show the summary and contributions. |
+| **Research** | `#research` | TumorMultiNet thesis with its pipeline, the accepted paper and *Smart First Aid Box* (submitted to ICCIT). |
+| **Contact** | `#contact` | "Let's build something **remarkable.**" — email as the main action plus phone, WhatsApp, GitHub and CV. There is **no contact form** and **no testimonials** (none are on record, so none are shown). |
+| **Footer** | — | Plum: outlined giant name, "Have an idea? ✳ Let’s make it real ✳ Say hello" marquee, email, phone, icon links, back to top. |
 
-There is deliberately **no second, large "Capabilities" section** lower down: the range is shown once, at the top, and the
-tools index in About is a small static list.
-
-**Creative Skill Showcase** (`data/skills.ts`, `components/sections/showcase`, `styles/showcase.css`)
-
-Ten skills, each a real-text name plus a drawing: Web Development, Digital Marketing, Meta / Facebook Ads (audience →
-campaign → creative → landing page), Google Ads (search query → ad → landing page), AI Automation (input → AI → workflow →
-output), Video Editing (a timeline), Photography (a focus frame on the rule of thirds), Visual Design / Canva (a layered
-composition), Business Automation (manual task → Apps Script / Sheets → automated system) and AI / Computer Vision Research
-(data → model → prediction → explainability). No fake analytics numbers are drawn.
-
-- **One stage, many scenes.** `creative-showcase.tsx` is the only client component. Scenes are percent-coordinate worlds
-  (`scenes.tsx`, `drawings.tsx`, `scene-kit.tsx`); nodes, planes and lines read one `--build` (0 → 1) CSS variable, so a
-  scene "draws itself" and every swap, scroll step or swipe replays it. No WebGL and no Three.js (crisp real text,
-  accessibility and Lighthouse cost).
-- **Auto swap.** After the page has loaded and settled, the stage cycles about every 3 s through Web → Marketing → AI
-  Automation → Video → Photography → Research, updating the typography and the drawing together. It stops for good on any
-  interaction or scroll start, and while the section is off screen, the tab is hidden, or reduced motion is on.
-- **Desktop pin (≥ 64rem, window ≥ 45rem tall).** Native `position: sticky`, about **1.9 viewport heights** in total: stages
-  **Build → Grow → Automate → Create → Research**. *Create* puts video, photography and design on one canvas with Word,
-  Excel and Google Workspace as a supporting strip. The panel is pinned vertically centred, then releases straight into
-  Selected Work. The page is never intercepted: no wheel hooks, no fake smooth scrolling, no snapping.
-- **Tablet (48–64rem).** Drawing on top, copy below, pinned about 1.7 viewport heights when the window is tall enough for the
-  whole stack (≥ 58rem); otherwise it flows unpinned.
-- **Phones (< 48rem).** No pin. A native scroll-snap carousel of all ten skills with a visible "Swipe to explore" hint and
-  progress dots; every swipe shows its drawing, and only the scenes next to the current slide are rendered.
-- **Skill index.** A real `tablist` of the ten skills (arrow keys, roving tabindex) that doubles as the visitor's control.
-- **Reduced motion or no JavaScript.** The live stage and carousel are hidden and a static composition shows all five groups
-  and every discipline name in its finished state. Skills are always real text in the DOM; drawings are `aria-hidden`.
+`data/proof.ts` values are derived from the other records, never typed in. Availability stays as
+"Open to conversations" — `profile.availability` is `null`, so no hiring status is claimed.
 
 ### Case studies
 
@@ -141,17 +116,17 @@ app/                  routes: home, work/[slug], plus robots, sitemap, icon
 components/
   brand/              BrandMark (OF monogram), BrandWordmark, BrandLockup
   navigation/         SiteHeader (server) → SiteNavigation + MobileMenu (client, mounted only when open)
-  sections/           hero · showcase (scenes, drawings, controller, tools index) · work · experience · research · about · contact
+  sections/           hero · work · skills · about (+ tools index) · highlights · experience · research · contact
   case-study/         CaseStudyLayout, CaseStudySection, CaseStudyScreens
-  layout/             Container, Grid, PageShell, Backdrop, StickyStack, SiteFooter
-  ui/                 Button, TextLink, SmartLink, StatusBadge, Eyebrow, SectionIntro,
-                      BrowserFrame, NoiseOverlay, SkipLink
+  layout/             Container, Grid, PageShell, Backdrop, SiteFooter
+  ui/                 Button, TextLink, SmartLink, StatusBadge, Eyebrow, SectionIntro, Accent, Marquee,
+                      SocialLinks, BrowserFrame, NoiseOverlay, SkipLink
   seo/                JsonLd
 data/                 single source of truth for all content (profile, projects, experience, research,
                       skills, education, credentials, contact, socials, navigation)
 hooks/                useActiveSection
-lib/                  site config, routes, metadata helpers, structured data, fonts, gsap, cn
-styles/               tokens, Tailwind theme mapping, base, typography, layout, effects, motion, work, showcase
+lib/                  site config, routes, metadata helpers, structured data, fonts, cn
+styles/               tokens, Tailwind theme mapping, base, typography, layout, effects, motion
 assets/               source/ masters and generated images/
 public/               cv/ PDFs, opengraph-image.png, .nojekyll
 tools/                cv/ (CV generator + verifiers), images/ (WebP build), build-export.mjs, serve-export.mjs
@@ -166,18 +141,21 @@ mapped to Tailwind utilities in [`styles/theme.css`](styles/theme.css). Componen
 
 - **Palette** — `--background #F7F4FC`, `--background-secondary #F0EAF8`, `--surface #FFFFFF`, `--foreground #19171D`,
   `--muted #6F6878`, `--accent #78609A`, `--accent-strong #56406F`, `--lavender #D9CDEA`, deep plum panel `#3B2B4D`.
-  Panels choose a surface with `data-surface="white|mauve|plum"`. There is no dark mode and no green.
-- **Type** — Instrument Sans (display) and Geist (body, UI); Instrument Serif only for large statements, titles,
-  hero roles and showcase skill names (`type-statement`, `type-title`, `type-roles`, `type-mega`).
-- **Layout** — `Container`, a 4/8/12-column editorial grid, fluid section rhythm, safe-area aware.
-  `SectionIntro` gives every section the same editorial opener.
-- **Motion** — CSS-first and gated by `prefers-reduced-motion` and `@supports (animation-timeline: view())`:
-  hero entrance and a 5px pointer depth on the portrait, heading rise, hairline draw, screenshot reveal, hero
-  parallax. JavaScript motion: the Work stack's ScrollTrigger recede (lazily imported when Work approaches the
-  viewport, never under reduced motion) and the showcase controller above. Scrolling is always native.
-- **Below-the-fold rendering** — `.defer-render` (`content-visibility: auto` with an `auto` intrinsic size) on
-  More Work, Experience, Research, About, Contact and the footer. Fragment loads (`:target`) and
-  same-page link clicks (`data-render-all`) render everything first, so anchors always land correctly.
+  Panels choose a surface with `data-surface="white|mauve|plum"`. There is no dark mode; the only green is the small "live" status dot (`#3FB97C`).
+- **Chrome** — `--ink #241B30` for the floating nav, device bezels and card fades; `--radius-card` for every card;
+  `shadow-card` and `shadow-float`. Buttons are pills.
+- **Type** — Archivo (display, variable width: headings at 112%, the hero name and footer at 125%), Geist (body, UI)
+  and Caveat for the hand-written kicker above each heading (`type-kicker`). Wrap one word per heading in `<Accent>`.
+- **Layout** — `Container`, a 4/8/12-column grid, fluid section rhythm, safe-area aware. `SectionIntro` gives every
+  section the same opener: "/ kicker", heading, optional lead and a right-aligned action.
+- **Motion** — CSS first, every piece gated by `prefers-reduced-motion`: hero aurora, letter rise, device float and
+  screen cross-fade, the availability orbit, skill visuals, marquees (paused on hover), `.reveal` / heading rise on
+  scroll where `animation-timeline: view()` is supported, a reading-progress bar, button shine, and native sticky for
+  the stacking skill cards. One small client component, `PointerEffects`, writes CSS variables for `data-spotlight`,
+  `data-tilt` and `data-magnetic` (fine pointers only). No animation library and no scroll hijacking.
+- **Below-the-fold rendering** — `.defer-render` (`content-visibility: auto`) on About, Career, Research, Contact and
+  the footer. Fragment loads (`:target`) and same-page link clicks (`data-render-all`) render everything first, so
+  anchors always land correctly.
 
 ## Deployment
 

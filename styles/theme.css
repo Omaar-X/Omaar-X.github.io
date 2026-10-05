@@ -6,6 +6,8 @@
   --radius-sm: 0.3125rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+  --radius-card: var(--radius-card);
 
   --breakpoint-nav: 56rem;
 }
@@ -32,10 +34,13 @@
   --color-mauve-ink: var(--mauve-ink);
   --color-mauve-tint: var(--mauve-tint);
   --color-highlight: var(--highlight);
+  --color-ink: var(--ink);
+  --color-on-ink: var(--on-ink);
+  --color-on-ink-muted: var(--on-ink-muted);
 
   --font-display: var(--font-family-display);
   --font-sans: var(--font-family-sans);
-  --font-serif: var(--font-family-serif);
+  --font-script: var(--font-family-script);
 
   --spacing-gutter: var(--gutter);
   --spacing-grid-gap: var(--grid-gap);
@@ -52,6 +57,8 @@
   --container-prose: var(--prose-max);
 
   --shadow-elevated: var(--elevation-raised);
+  --shadow-card: var(--elevation-card);
+  --shadow-float: var(--elevation-float);
 
   --ease-editorial: var(--easing-editorial);
   --ease-out-expo: var(--easing-out-expo);

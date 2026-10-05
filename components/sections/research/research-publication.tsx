@@ -25,7 +25,7 @@ export function ResearchPublication({ item, index }: ResearchPublicationProps) {
         {venue && <p className="type-micro text-subtle">{venue}</p>}
         <h3
           id={titleId}
-          className="scroll-rise max-w-[44rem] font-serif text-[clamp(1.625rem,1.2rem+1.5vw,2.5rem)] leading-[1.08] tracking-[-0.01em]"
+          className="scroll-rise max-w-[44rem] font-display font-semibold [font-stretch:112%] text-[clamp(1.625rem,1.2rem+1.5vw,2.5rem)] leading-[1.08] tracking-[-0.01em]"
         >
           {item.title}
         </h3>

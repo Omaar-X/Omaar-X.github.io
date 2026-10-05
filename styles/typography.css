@@ -1,68 +1,84 @@
+/* Bold, slightly expanded display sans for every heading; one word per heading can be set in the
+   accent colour with <Accent>. The hand-written kicker sits above section headings. */
 @utility type-display {
   font-family: var(--font-family-display);
   font-size: var(--step-display);
-  font-weight: 600;
-  font-stretch: var(--display-stretch);
-  line-height: 0.9;
-  letter-spacing: -0.045em;
+  font-weight: 700;
+  font-stretch: var(--display-stretch-max);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
 }
 
-/* Editorial serif accent: large statements, titles and selected words only. */
 @utility type-statement {
-  font-family: var(--font-family-serif);
+  font-family: var(--font-family-display);
   font-size: var(--step-statement);
-  font-weight: 400;
-  line-height: 0.98;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  font-stretch: var(--display-stretch);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
 }
 
 @utility type-statement-sm {
-  font-family: var(--font-family-serif);
+  font-family: var(--font-family-display);
   font-size: var(--step-statement-sm);
-  font-weight: 400;
-  line-height: 1.02;
-  letter-spacing: -0.015em;
+  font-weight: 600;
+  font-stretch: var(--display-stretch);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
 }
 
 @utility type-title {
-  font-family: var(--font-family-serif);
+  font-family: var(--font-family-display);
   font-size: var(--step-title);
-  font-weight: 400;
-  line-height: 0.98;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  font-stretch: var(--display-stretch);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 
 @utility type-roles {
-  font-family: var(--font-family-serif);
+  font-family: var(--font-family-display);
   font-size: var(--step-roles);
-  font-weight: 400;
-  line-height: 0.96;
-  letter-spacing: -0.025em;
+  font-weight: 600;
+  font-stretch: var(--display-stretch);
+  line-height: 1;
+  letter-spacing: -0.035em;
 }
 
 @utility type-mega {
-  font-family: var(--font-family-serif);
+  font-family: var(--font-family-display);
   font-size: var(--step-mega);
-  font-weight: 400;
-  line-height: 0.88;
+  font-weight: 700;
+  font-stretch: var(--display-stretch-max);
+  line-height: 0.95;
   letter-spacing: -0.035em;
 }
 
 @utility type-h2 {
   font-family: var(--font-family-display);
   font-size: var(--step-h2);
-  font-weight: 560;
+  font-weight: 600;
   font-stretch: var(--display-stretch);
-  line-height: 1.02;
+  line-height: 1.04;
   letter-spacing: -0.032em;
 }
 
 @utility type-h3 {
   font-family: var(--font-family-display);
   font-size: var(--step-h3);
-  font-weight: 520;
+  font-weight: 600;
+  font-stretch: var(--display-stretch);
   line-height: 1.18;
-  letter-spacing: -0.018em;
+  letter-spacing: -0.02em;
+}
+
+@utility type-kicker {
+  font-family: var(--font-family-script);
+  font-size: var(--step-kicker);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0;
 }
 
 @utility type-eyebrow {

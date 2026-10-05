@@ -13,7 +13,7 @@ export function ResearchPipeline({ stages }: ResearchPipelineProps) {
     >
       {stages.map((stage, index) => (
         <li key={stage.stage} className="rule-top flex flex-col gap-3 pt-fluid-sm">
-          <span className="font-serif text-[clamp(2rem,1.6rem+1.2vw,3rem)] leading-none text-mauve-ink">
+          <span className="font-display font-semibold [font-stretch:112%] text-[clamp(2rem,1.6rem+1.2vw,3rem)] leading-none text-mauve-ink">
             {String(index + 1).padStart(2, "0")}
           </span>
           <h4 className="type-h3">{stage.label}</h4>

@@ -6,8 +6,8 @@
 @import "../styles/layout.css";
 @import "../styles/effects.css";
 @import "../styles/motion.css";
-@import "../styles/work.css";
-@import "../styles/showcase.css";
+@import "../styles/skills.css";
+@import "../styles/intro.css";
 
 @source "../app";
 @source "../components";

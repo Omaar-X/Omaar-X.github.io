@@ -1,9 +1,10 @@
-import { Geist, Instrument_Sans, Instrument_Serif } from "next/font/google";
+import { Archivo, Caveat, Geist } from "next/font/google";
 
-export const fontDisplay = Instrument_Sans({
+/** Display: headings and the hero name. The width axis runs from regular to expanded (125). */
+export const fontDisplay = Archivo({
   subsets: ["latin"],
   axes: ["wdth"],
-  variable: "--font-instrument-sans",
+  variable: "--font-archivo",
   display: "swap",
 });
 
@@ -13,10 +14,10 @@ export const fontSans = Geist({
   display: "swap",
 });
 
-/** Editorial accent: hero roles and section statements. */
-export const fontSerif = Instrument_Serif({
+/** Hand-written kicker above section headings ("/ Selected Work"). Accent only, never body copy. */
+export const fontScript = Caveat({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-instrument-serif",
+  weight: ["500", "600"],
+  variable: "--font-caveat",
   display: "swap",
 });

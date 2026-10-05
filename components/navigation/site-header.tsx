@@ -24,6 +24,7 @@ export function SiteHeader() {
       links={primaryNavigation.map(toMenuLink)}
       menuLinks={sections.map(toMenuLink)}
       callToAction={contactCallToAction}
+      secondaryAction={{ label: "Resume", href: cv.general.href, download: cv.general.fileName }}
       menuHeading={profile.name}
       menuFooterLinks={[
         ...socials.map((social) => ({ label: social.label, href: social.href })),

@@ -1,6 +1,6 @@
 import { toolsIndex } from "@/data/skills";
 
-/** A compact, static index of tools and technologies. The creative range is shown at the top of the page. */
+/** A compact, static index of tools and technologies. */
 export function ToolsIndex() {
   return (
     <div className="flex flex-col gap-fluid-sm">

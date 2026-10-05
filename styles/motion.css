@@ -34,11 +34,11 @@
 }
 
 @utility enter-rise {
-  animation: enter-rise 1.1s var(--easing-out-expo) var(--enter-delay, 0ms) both;
+  animation: enter-rise 1.1s var(--easing-out-expo) calc(var(--enter-delay, 0ms) + var(--intro-offset, 0ms)) both;
 }
 
 @utility enter-fade {
-  animation: enter-fade 0.9s var(--easing-editorial) var(--enter-delay, 0ms) both;
+  animation: enter-fade 0.9s var(--easing-editorial) calc(var(--enter-delay, 0ms) + var(--intro-offset, 0ms)) both;
 }
 
 @layer components {

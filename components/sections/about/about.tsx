@@ -1,104 +1,80 @@
-import { Download } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { Container } from "@/components/layout/container";
+import { Accent } from "@/components/ui/accent";
 import { Button } from "@/components/ui/button";
-import { SectionIntro } from "@/components/ui/section-intro";
-import { TextLink } from "@/components/ui/text-link";
+import { SocialLinks } from "@/components/ui/social-links";
+import { HeroPortrait } from "@/components/sections/hero/hero-portrait";
+import { ToolsIndex } from "@/components/sections/about/tools-index";
 import { sectionHref } from "@/data/navigation";
 import { profile } from "@/data/profile";
+import { clientNames } from "@/data/proof";
 import { AboutCredentials } from "./about-credentials";
 import { AboutEducation } from "./about-education";
-import { ToolsIndex } from "@/components/sections/showcase/tools-index";
 
 export function AboutSection() {
-  const { about, cv, location, currentCompany } = profile;
-  const [lead, ...rest] = about.paragraphs;
-
-  const facts = [
-    { term: "Based in", detail: `${location.city}, ${location.country}` },
-    { term: "Currently", detail: currentCompany.name },
-    { term: "Focus", detail: "Web · Growth · AI research" },
-  ];
+  const { about, cv, location, heroStatement, heroSummary, portrait } = profile;
 
   return (
     <section
       id="about"
       aria-labelledby="about-title"
-      className="defer-render relative bg-[linear-gradient(to_bottom,transparent,var(--surface-soft)_18rem,var(--surface-soft)_calc(100%-14rem),transparent)] pt-section-compact pb-section [--defer-h:175rem] md:[--defer-h:142rem] lg:[--defer-h:161rem]"
+      className="defer-render relative pt-section-compact pb-section-compact [--defer-h:175rem] md:[--defer-h:142rem] lg:[--defer-h:150rem]"
     >
       <Container className="flex flex-col gap-fluid-xl">
-        <SectionIntro
-          id="about-title"
-          index="05"
-          label="About"
-          meta={
-            <>
-              {location.city}, {location.country}
-            </>
-          }
-          size="sm"
-          title="Building at the intersection of technology, business & intelligent systems."
-          lead={about.introduction}
-        />
-
-        <div className="editorial-grid gap-y-fluid-lg">
-          <div className="col-span-full flex flex-col gap-fluid-md lg:col-span-7 lg:col-start-6">
-            {lead && (
-              <p className="max-w-[40rem] font-serif text-[clamp(1.5rem,1.15rem+1.4vw,2.375rem)] leading-[1.18] tracking-[-0.01em] text-foreground">
-                {lead}
-              </p>
-            )}
-            <div className="flex max-w-[40rem] flex-col gap-fluid-sm">
-              {rest.map((paragraph) => (
+        <div className="grid items-center gap-fluid-lg lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-fluid-xl">
+          <div className="flex flex-col gap-fluid-md">
+            <p className="type-kicker scroll-rise text-muted">
+              <span aria-hidden>/ </span>About me
+            </p>
+            <h2 id="about-title" className="type-statement scroll-rise max-w-[18ch] text-balance">
+              {heroStatement.lead}
+              <Accent>{heroStatement.accent}</Accent>
+              {heroStatement.tail}
+            </h2>
+            <p className="type-body-lg font-medium text-foreground">{about.introduction}</p>
+            <div className="flex max-w-[38rem] flex-col gap-fluid-sm">
+              <p className="type-body text-muted">{heroSummary}</p>
+              {about.paragraphs.slice(1, 3).map((paragraph) => (
                 <p key={paragraph} className="type-body text-muted">
                   {paragraph}
                 </p>
               ))}
             </div>
-
-            <div className="rule-top flex flex-col gap-fluid-sm pt-fluid-sm">
-              <h3 className="type-eyebrow text-muted">Current focus</h3>
-              <ul className="grid gap-x-(--grid-gap) gap-y-fluid-sm sm:grid-cols-2">
-                {about.currentFocus.map((item) => (
-                  <li key={item.label} className="flex flex-col gap-0.5">
-                    <span className="type-body font-medium text-foreground">{item.label}</span>
-                    <span className="type-small text-muted">{item.detail}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="flex flex-wrap gap-3">
+              <Button href={sectionHref("contact")} icon={ArrowRight}>
+                Let’s talk
+              </Button>
+              <Button variant="secondary" href={cv.general.href} download={cv.general.fileName} icon={Download}>
+                View resume
+              </Button>
+            </div>
+            <div className="flex flex-col gap-fluid-sm pt-fluid-xs">
+              <p className="type-h3 max-w-[30rem] text-balance">
+                Built for {clientNames.slice(0, 3).join(", ")} &amp; more.
+              </p>
+              <SocialLinks />
             </div>
           </div>
 
-          <dl className="rule-top col-span-full flex flex-col gap-fluid-sm pt-fluid-sm lg:sticky lg:top-[calc(var(--header-offset)+2rem)] lg:col-span-4 lg:col-start-1 lg:row-start-1 lg:self-start">
-            {facts.map((fact) => (
-              <div key={fact.term} className="flex flex-col gap-1">
-                <dt className="type-micro text-subtle">{fact.term}</dt>
-                <dd className="type-body text-foreground">{fact.detail}</dd>
+          <div className="relative mx-auto w-full max-w-[26rem] [perspective:1400px]">
+            <div className="relative rotate-[4deg] rounded-[2rem] bg-ink p-3 shadow-float transition-transform duration-700 ease-editorial hover:rotate-[1.5deg]">
+              <div className="relative overflow-hidden rounded-[1.4rem] bg-[radial-gradient(110%_80%_at_50%_10%,var(--lavender-light),var(--lavender))] p-[12%]">
+                <HeroPortrait portrait={portrait} sizes="22rem" priority={false} variant="bare" className="w-full" />
+                <p className="type-micro mt-6 text-center text-mauve-ink">
+                  {location.city}, {location.country}
+                </p>
               </div>
-            ))}
-          </dl>
+            </div>
+            <p className="type-kicker absolute -bottom-5 -left-3 -rotate-6 rounded-full bg-accent px-4 py-2 text-on-accent shadow-elevated sm:-left-8">
+              Hello, I’m {profile.shortName}!
+            </p>
+          </div>
         </div>
 
         <div className="flex flex-col gap-fluid-xl">
           <AboutEducation />
           <AboutCredentials />
           <ToolsIndex />
-        </div>
-
-        <div className="flex flex-col gap-fluid-md">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <Button
-              variant="secondary"
-              href={cv.general.href}
-              download={cv.general.fileName}
-              icon={Download}
-            >
-              Download CV
-            </Button>
-          </div>
-          <div className="rule-top flex items-center justify-between gap-6 pt-fluid-sm">
-            <p className="type-micro text-subtle">Next</p>
-            <TextLink href={sectionHref("contact")}>Contact</TextLink>
-          </div>
         </div>
       </Container>
     </section>

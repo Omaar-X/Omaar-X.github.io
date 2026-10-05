@@ -20,7 +20,7 @@ export function AboutEducation() {
         {degree && (
           <li className="editorial-grid gap-y-fluid-sm py-fluid-md">
             <div className="col-span-full flex flex-col gap-1 md:col-span-2 lg:col-span-3">
-              <span className="font-serif text-[clamp(2.5rem,1.9rem+2.4vw,4.5rem)] leading-none">
+              <span className="font-display font-semibold [font-stretch:112%] text-[clamp(2.5rem,1.9rem+2.4vw,4.5rem)] leading-none">
                 {yearOf(degree.completed)}
               </span>
               <span className="type-micro text-subtle">Completed</span>

@@ -32,8 +32,13 @@ export type Profile = {
   shortName: string;
   initials: string;
   disciplines: readonly Discipline[];
-  /** The three roles shown large in the hero, and the one-line positioning under them. */
+  /** The roles shown next to the name in the hero, and the one-line positioning. */
   heroRoles: readonly string[];
+  /** Three-beat line above the name in the hero. */
+  heroTagline: string;
+  /** The promise, used as the About heading. `accent` is set in the accent colour. */
+  heroStatement: { lead: string; accent: string; tail: string };
+  heroSummary: string;
   positioning: readonly string[];
   professionalTitles: readonly string[];
   headline: readonly string[];
@@ -70,6 +75,10 @@ export const profile: Profile = {
   initials: "OF",
   disciplines,
   heroRoles: ["Web Developer", "Digital Marketer", "Creative Technologist"],
+  heroTagline: "Web. Growth. AI.",
+  heroStatement: { lead: "I build digital products that help businesses ", accent: "grow", tail: "." },
+  heroSummary:
+    "Web developer and digital marketer in Dhaka. I take businesses from first layout to a live site, then grow it with SEO, ads and automation, backed by applied AI research.",
   positioning: ["Development", "Digital growth", "Automation", "Creative production", "AI research"],
   professionalTitles: disciplines.map((discipline) => discipline.title),
   headline: ["Building digital products,", "growing brands &", "exploring intelligent systems."],

@@ -1,0 +1,196 @@
+/* Intro loader (components/layout/intro-loader.tsx). About 2.2s in total, CSS only:
+ *   0.0–1.6s  monogram draws, name rises, counter and bar run 0 → 100
+ *   1.6–2.2s  the panel wipes up and the hero's own entrance begins underneath
+ * Skipped when <html data-intro-seen> (once per session) or under reduced motion. */
+
+@property --intro-n {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@keyframes intro-count {
+  to {
+    --intro-n: 100;
+  }
+}
+
+@keyframes intro-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes intro-rise {
+  from {
+    translate: 0 110%;
+    opacity: 0;
+  }
+}
+
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes intro-bar {
+  from {
+    scale: 0 1;
+  }
+}
+
+@keyframes intro-exit {
+  to {
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+  }
+}
+
+@keyframes intro-lift {
+  to {
+    translate: 0 -3rem;
+    opacity: 0;
+  }
+}
+
+@keyframes intro-glow {
+  50% {
+    scale: 1.15;
+    opacity: 0.9;
+  }
+}
+
+@layer components {
+  .intro {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html:not([data-intro-seen]) .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: var(--foreground);
+      background: radial-gradient(120% 90% at 50% 0%, #ffffff, var(--lavender-light) 45%, var(--lavender) 100%);
+      clip-path: inset(0 0 0 0);
+      pointer-events: none;
+      animation: intro-exit 0.75s var(--easing-out-expo) 1.65s forwards;
+    }
+
+    /* The hero waits for the wipe before running its own entrance. */
+    html:not([data-intro-seen]) {
+      --intro-offset: 1700ms;
+    }
+  }
+
+  .intro-glow {
+    position: absolute;
+    width: 42rem;
+    height: 42rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(201 184 236 / 0.75), transparent 62%);
+    filter: blur(20px);
+    animation: intro-glow 2.4s ease-in-out infinite;
+  }
+
+  .intro-center {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+    animation: intro-lift 0.6s var(--easing-editorial) 1.6s forwards;
+  }
+
+  .intro-mark {
+    width: clamp(4rem, 3rem + 4vw, 6rem);
+    height: auto;
+  }
+
+  .intro-stroke {
+    stroke: var(--accent-strong);
+    stroke-width: 1.75;
+    stroke-linecap: square;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: intro-draw 0.9s var(--easing-out-expo) var(--s, 0s) forwards;
+  }
+
+  .intro-stroke-accent {
+    stroke: var(--accent-soft);
+  }
+
+  .intro-name {
+    display: flex;
+    overflow: hidden;
+    font-family: var(--font-family-display);
+    font-size: clamp(1.5rem, 1rem + 2.4vw, 2.75rem);
+    font-weight: 700;
+    font-stretch: var(--display-stretch-max);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .intro-name > span {
+    display: inline-block;
+    animation: intro-rise 0.8s var(--easing-out-expo) calc(0.35s + var(--l, 0) * 0.04s) both;
+  }
+
+  .intro-tagline {
+    font-family: var(--font-family-script);
+    font-size: var(--step-kicker);
+    color: var(--accent);
+    animation: intro-fade 0.8s var(--easing-editorial) 0.9s both;
+  }
+
+  .intro-foot {
+    position: absolute;
+    inset-inline: max(var(--gutter), env(safe-area-inset-left));
+    bottom: calc(var(--fluid-md) + 0.75rem);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    animation: intro-lift 0.6s var(--easing-editorial) 1.6s forwards;
+  }
+
+  .intro-place {
+    font-size: var(--step-micro);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    animation: intro-fade 0.8s var(--easing-editorial) 0.5s both;
+  }
+
+  .intro-count {
+    font-family: var(--font-family-display);
+    font-size: clamp(3.5rem, 2rem + 7vw, 8rem);
+    font-weight: 700;
+    font-stretch: var(--display-stretch-max);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: var(--accent-strong);
+    font-variant-numeric: tabular-nums;
+    counter-reset: intro var(--intro-n);
+    animation: intro-count 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+
+  .intro-count::after {
+    content: counter(intro);
+  }
+
+  .intro-bar {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 3px;
+    transform-origin: left;
+    background: linear-gradient(90deg, var(--accent-soft), var(--accent), var(--accent-strong));
+    animation: intro-bar 1.5s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+}

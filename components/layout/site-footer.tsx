@@ -1,75 +1,62 @@
-import { ArrowUp } from "lucide-react";
-import { BrandLockup } from "@/components/brand/brand-lockup";
+import { ArrowUp, Asterisk } from "lucide-react";
 import { Container } from "@/components/layout/container";
+import { Marquee } from "@/components/ui/marquee";
 import { SmartLink } from "@/components/ui/smart-link";
-import { footerLinks } from "@/data/contact";
-import { primaryNavigation } from "@/data/navigation";
+import { SocialLinks } from "@/components/ui/social-links";
+import { contactEmail, contactMethods } from "@/data/contact";
 import { profile } from "@/data/profile";
 import { copyrightYear } from "@/lib/site";
 
-const linkClasses =
-  "inline-flex min-h-10 items-center text-[0.9375rem] md:min-h-9 text-muted transition-colors duration-300 hover:text-foreground";
+const phone = contactMethods.find((method) => method.id === "phone");
 
+/** Plum footer: the name as giant outlined type, an endless invitation line, then contact. */
+
+const invitation = ["Have an idea?", "Let’s make it real", "Say hello"];
 export function SiteFooter() {
   return (
-    <footer data-surface="plum" className="defer-render bg-(--panel) text-foreground [--defer-h:25rem] lg:[--defer-h:19rem]">
-      <Container className="flex flex-col gap-fluid-md border-t border-border pt-fluid-md pb-[max(var(--fluid-sm),env(safe-area-inset-bottom))]">
-        <div className="editorial-grid gap-y-fluid-sm">
-          <div className="col-span-full flex flex-col gap-2 lg:col-span-5">
-            <div>
-              <BrandLockup />
-            </div>
-            <p className="type-small max-w-xs text-muted">
-              {profile.professionalTitles.join(" · ")}
-            </p>
-          </div>
+    <footer
+      data-surface="plum"
+      className="defer-render relative overflow-hidden bg-(--panel) pt-fluid-xl text-foreground [--defer-h:40rem]"
+    >
+      <p
+        aria-hidden
+        className="pointer-events-none text-center font-display text-[clamp(3rem,10.4vw,13rem)] leading-[0.85] font-bold tracking-[-0.04em] whitespace-nowrap [font-stretch:125%] text-transparent uppercase select-none [-webkit-text-stroke:1px_rgb(251_248_244/0.16)]"
+      >
+        {profile.name}
+      </p>
 
-          <nav aria-label="Footer" className="col-span-2 md:col-span-3 lg:col-span-3 lg:col-start-7">
-            <p className="type-micro mb-1 text-subtle">Explore</p>
-            <ul>
-              {primaryNavigation.map((item) => (
-                <li key={item.id}>
-                  <SmartLink href={`/#${item.id}`} className={linkClasses}>
-                    {item.label}
-                  </SmartLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
+      <Marquee
+        label={invitation.join(" ")}
+        items={[...invitation, ...invitation]}
+        duration={30}
+        className="-mt-[0.35em] py-fluid-sm [--marquee-gap:clamp(1.5rem,3vw,3rem)]"
+        itemClassName="font-display text-[clamp(2rem,1.2rem+3.4vw,4.5rem)] leading-none font-semibold tracking-[-0.035em] whitespace-nowrap [font-stretch:112%]"
+        separator={<Asterisk aria-hidden strokeWidth={2} className="size-[0.8em] text-accent-soft" />}
+      />
 
-          <nav
-            aria-label="Professional links"
-            className="col-span-2 md:col-span-3 md:col-start-6 lg:col-span-3 lg:col-start-10"
-          >
-            <p className="type-micro mb-1 text-subtle">Elsewhere</p>
-            <ul>
-              {footerLinks.map((link) => (
-                <li key={link.id}>
-                  <SmartLink href={link.href} download={link.download} className={linkClasses}>
-                    {link.label}
-                  </SmartLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
+      <Container className="flex flex-col items-center gap-fluid-md pt-fluid-md pb-[calc(max(var(--fluid-md),env(safe-area-inset-bottom))+4.5rem)] text-center nav:pb-[calc(var(--fluid-md)+5rem)]">
+        <div className="flex flex-col items-center gap-2">
+          <SmartLink href={contactEmail.href} className="type-h3 link-underline">
+            {contactEmail.value}
+          </SmartLink>
+          {phone && (
+            <SmartLink href={phone.href} className="type-body text-muted hover:text-foreground">
+              {phone.value}
+            </SmartLink>
+          )}
         </div>
+        <SocialLinks tone="dark" className="justify-center" />
 
-        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-border pt-fluid-sm">
+        <div className="flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-border pt-fluid-sm">
           <p className="type-small text-subtle">
-            © {copyrightYear} {profile.name}
-            <span aria-hidden className="hidden sm:inline"> · </span>
-            <span className="block sm:inline">Built with Next.js</span>
+            © {copyrightYear} {profile.name}. All rights reserved.
           </p>
           <a
             href="#"
-            className="group/top inline-flex min-h-10 items-center gap-2 text-[0.9375rem] font-medium text-foreground"
+            aria-label="Back to top"
+            className="grid size-10 place-items-center rounded-full bg-white/8 ring-1 ring-white/12 transition-[background-color,translate] duration-300 hover:-translate-y-0.5 hover:bg-white/16"
           >
-            <span className="link-underline">Back to top</span>
-            <ArrowUp
-              aria-hidden
-              strokeWidth={1.75}
-              className="size-4 text-muted transition-transform duration-300 ease-editorial group-hover/top:-translate-y-0.5"
-            />
+            <ArrowUp aria-hidden strokeWidth={1.75} className="size-4" />
           </a>
         </div>
       </Container>

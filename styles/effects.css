@@ -63,15 +63,6 @@
     content-visibility: visible;
   }
 
-  /* Hero portrait depth: written by HeroDepth, 5px at most. */
-  .hero-depth-ring {
-    translate: calc(var(--hx, 0) * -2px) calc(var(--hy, 0) * -2px);
-  }
-
-  .hero-depth-photo {
-    translate: calc(var(--hx, 0) * 5px) calc(var(--hy, 0) * 5px);
-  }
-
   .link-underline {
     padding-bottom: 0.125em;
     background-image:
@@ -99,5 +90,366 @@
         100% 1px,
         100% 1px;
     }
+  }
+}
+
+@keyframes marquee-slide {
+  to {
+    translate: -50% 0;
+  }
+}
+
+@keyframes orbit {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@layer components {
+  .marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    gap: var(--marquee-gap, 2rem);
+    animation: marquee-slide var(--marquee-duration, 40s) linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      overflow-x: auto;
+    }
+
+    .marquee-track {
+      animation: none;
+    }
+  }
+
+  /* Rotating text ring around the availability dot in the hero. */
+  .orbit-text {
+    animation: orbit 18s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .orbit-text {
+      animation: none;
+    }
+  }
+
+  /* Faint dotted grid behind the hero. */
+  .dot-grid {
+    background-image: radial-gradient(circle at 1px 1px, var(--border-strong) 1px, transparent 0);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 75%);
+  }
+}
+
+@keyframes hero-screen {
+  0% {
+    opacity: 0;
+  }
+  4%,
+  20% {
+    opacity: 1;
+  }
+  24%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes device-float {
+  50% {
+    translate: 0 -0.6rem;
+  }
+}
+
+@layer components {
+  /* Screens cross-fade in turn; the first is visible before animations start and under reduced motion. */
+  .hero-screen {
+    opacity: 0;
+  }
+
+  .hero-screen[data-first] {
+    opacity: 1;
+  }
+
+  .hero-device-body {
+    transform: rotateX(8deg) rotateY(-14deg) rotateZ(4deg);
+    transform-style: preserve-3d;
+    transition: transform 900ms var(--easing-editorial);
+  }
+
+  .hero-device:hover .hero-device-body {
+    transform: rotateX(3deg) rotateY(-6deg) rotateZ(1.5deg);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-screen {
+      animation: hero-screen calc(var(--slots) * var(--slot)) linear infinite;
+      animation-delay: calc(var(--i) * var(--slot) - var(--slot) * 0.2);
+    }
+
+    .hero-device {
+      animation: device-float 6s ease-in-out infinite;
+    }
+  }
+}
+
+/* ───────── premium layer ───────── */
+
+@keyframes aurora-drift {
+  0%,
+  100% {
+    translate: 0 0;
+    scale: 1;
+  }
+  33% {
+    translate: 6% -4%;
+    scale: 1.08;
+  }
+  66% {
+    translate: -5% 5%;
+    scale: 0.96;
+  }
+}
+
+@keyframes letter-rise {
+  from {
+    translate: 0 105%;
+    opacity: 0;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    translate: 0 2.5rem;
+    scale: 0.98;
+  }
+}
+
+@keyframes shine {
+  from {
+    translate: -120% 0;
+  }
+  to {
+    translate: 220% 0;
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    translate: 0 -100%;
+  }
+  100% {
+    translate: 0 200%;
+  }
+}
+
+@keyframes chip-float {
+  50% {
+    translate: 0 -0.5rem;
+  }
+}
+
+@keyframes progress-grow {
+  from {
+    scale: 0 1;
+  }
+}
+
+@layer components {
+  /* Soft moving colour behind the hero and dark sections. */
+  .aurora {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .aurora {
+      animation: aurora-drift 22s ease-in-out infinite;
+    }
+
+    .aurora:nth-child(2) {
+      animation-duration: 28s;
+      animation-direction: reverse;
+    }
+
+    .aurora:nth-child(3) {
+      animation-duration: 34s;
+    }
+  }
+
+  /* Hero name: each letter rises out of a mask. */
+  .letter-mask {
+    display: inline-flex;
+    overflow: hidden;
+    padding-block: 0.06em;
+    margin-block: -0.06em;
+  }
+
+  .letter-mask > span {
+    display: inline-block;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .letter-mask > span {
+      animation: letter-rise 1.1s var(--easing-out-expo) both;
+      animation-delay: calc(200ms + var(--l, 0) * 55ms + var(--intro-offset, 0ms));
+    }
+
+    .chip-float {
+      animation: chip-float 5s ease-in-out infinite;
+      animation-delay: var(--d, 0s);
+    }
+
+    .scroll-cue::after {
+      animation: scroll-cue 1.8s var(--easing-editorial) infinite;
+    }
+  }
+
+  .scroll-cue {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scroll-cue::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 40%;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+
+  /* Elements fade up as they scroll into view (CSS scroll timeline; fully visible without support). */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .reveal {
+        animation: reveal-up linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 55%;
+      }
+    }
+  }
+
+  /* Cursor-following light inside cards ([data-spotlight], written by PointerEffects). */
+  [data-spotlight] {
+    --spot: rgb(255 255 255 / 0.16);
+  }
+
+  [data-spotlight]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(28rem circle at var(--mx, 50%) var(--my, 50%), var(--spot), transparent 45%);
+    transition: opacity 500ms var(--easing-editorial);
+  }
+
+  [data-spotlight][data-pointer]::after {
+    opacity: 1;
+  }
+
+  /* Tilt toward the pointer ([data-tilt]). */
+  [data-tilt] {
+    transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 700ms var(--easing-editorial);
+  }
+
+  [data-tilt][data-pointer] {
+    transition-duration: 120ms;
+  }
+
+  /* A few pixels of pull toward the pointer ([data-magnetic]). */
+  [data-magnetic] {
+    translate: var(--tx, 0) var(--ty, 0);
+    transition: translate 600ms var(--easing-editorial);
+  }
+
+  [data-magnetic][data-pointer] {
+    transition-duration: 150ms;
+  }
+
+  /* Light sweep across primary buttons on hover. */
+  .btn-shine {
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .btn-shine::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    z-index: -1;
+    width: 40%;
+    translate: -120% 0;
+    background: linear-gradient(100deg, transparent, rgb(255 255 255 / 0.35), transparent);
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .btn-shine:hover::before {
+      animation: shine 900ms var(--easing-editorial);
+    }
+  }
+
+  /* Reading progress along the top edge. */
+  .scroll-progress {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 60;
+    height: 2px;
+    transform-origin: left;
+    background: linear-gradient(90deg, var(--accent-soft), var(--accent), var(--accent-strong));
+    scale: 0 1;
+    pointer-events: none;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      scale: 1 1;
+      animation: progress-grow linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+
+  /* Glass surface for chips and cards on top of imagery or dark panels. */
+  .glass {
+    background: rgb(255 255 255 / 0.8);
+    border: 1px solid rgb(255 255 255 / 0.85);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  }
+
+  .glass-dark {
+    background: rgb(255 255 255 / 0.05);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  /* Gradient-filled text. */
+  .text-gradient {
+    background: linear-gradient(100deg, var(--foreground) 20%, var(--accent) 60%, var(--accent-soft));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 }

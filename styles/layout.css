@@ -47,16 +47,4 @@
       grid-column: var(--start-lg) / span var(--span-lg);
     }
   }
-
-  .sticky-stack {
-    display: grid;
-    gap: var(--stack-gap, var(--fluid-lg));
-  }
-
-  .sticky-stack > [data-stack-item] {
-    position: sticky;
-    top: calc(
-      var(--stack-top, var(--header-offset)) + var(--stack-index) * var(--stack-offset, 0.75rem)
-    );
-  }
 }

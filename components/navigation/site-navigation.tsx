@@ -1,5 +1,6 @@
 "use client";
 
+import { Download, House } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Container } from "@/components/layout/container";
@@ -13,6 +14,8 @@ type SiteNavigationProps = {
   links: readonly MenuLink[];
   menuLinks: readonly MenuLink[];
   callToAction: { label: string; href: string };
+  /** Shown top right on desktop, where the section links used to be. */
+  secondaryAction: { label: string; href: string; download?: string };
   menuHeading: string;
   menuFooterLinks: readonly MenuFooterLink[];
   menuNote: string;
@@ -32,6 +35,7 @@ export function SiteNavigation({
   links,
   menuLinks,
   callToAction,
+  secondaryAction,
   menuHeading,
   menuFooterLinks,
   menuNote,
@@ -165,29 +169,19 @@ export function SiteNavigation({
         aria-hidden
         className="absolute inset-0 -z-10 border-b border-transparent transition-[background-color,border-color,opacity] duration-500 ease-editorial group-data-[menu-open]/header:opacity-0 group-data-[scrolled=true]/header:border-border group-data-[scrolled=true]/header:bg-background/88 group-data-[scrolled=true]/header:backdrop-blur-md"
       />
-      <Container className="grid h-(--header-height) grid-cols-[1fr_auto] items-center gap-3 nav:grid-cols-[1fr_auto_1fr] nav:gap-6">
-        <div className="justify-self-start">{brand}</div>
+      <Container className="flex h-(--header-height) items-center justify-between gap-3">
+        <div>{brand}</div>
 
-        <nav aria-label="Primary" className="hidden nav:block">
-          <ul className="flex items-center gap-[clamp(1.75rem,2.8vw,3rem)]">
-            {links.map((link) => (
-              <li key={link.id}>
-                <Link
-                  href={link.href}
-                  aria-current={activeId === link.id ? "location" : undefined}
-                  className="relative inline-flex min-h-11 items-center text-[0.9375rem] text-muted transition-colors duration-300 after:absolute after:inset-x-0 after:bottom-2.5 after:h-px after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-500 after:ease-editorial hover:text-foreground hover:after:origin-left hover:after:scale-x-100 focus-visible:after:scale-x-100 aria-[current=location]:text-foreground aria-[current=location]:after:scale-x-100"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="col-start-2 flex items-center justify-self-end nav:col-start-3">
+        <div className="flex items-center">
           <div className="hidden nav:block">
-            <Button size="sm" variant="secondary" href={callToAction.href}>
-              {callToAction.label}
+            <Button
+              size="sm"
+              variant="secondary"
+              href={secondaryAction.href}
+              download={secondaryAction.download}
+              icon={Download}
+            >
+              {secondaryAction.label}
             </Button>
           </div>
           <button
@@ -216,6 +210,43 @@ export function SiteNavigation({
           </button>
         </div>
       </Container>
+
+      {/* Desktop: the section links live in a floating pill at the bottom of the window. */}
+      <nav
+        aria-label="Primary"
+        className="enter-rise fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-1/2 z-40 hidden -translate-x-1/2 nav:block"
+      >
+        <ul className="flex items-center gap-1 rounded-full bg-ink p-1.5 text-on-ink shadow-float ring-1 ring-white/10">
+          <li>
+            <Link
+              href="/#hero"
+              aria-label="Back to the top"
+              className="grid size-10 place-items-center rounded-full bg-white/8 text-on-ink transition-colors duration-300 hover:bg-white/16"
+            >
+              <House aria-hidden strokeWidth={1.75} className="size-4" />
+            </Link>
+          </li>
+          {links.map((link) => (
+            <li key={link.id}>
+              <Link
+                href={link.href}
+                aria-current={activeId === link.id ? "location" : undefined}
+                className="inline-flex min-h-10 items-center rounded-full px-3.5 text-sm whitespace-nowrap text-on-ink-muted transition-colors duration-300 hover:text-on-ink aria-[current=location]:bg-white/10 aria-[current=location]:text-on-ink"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+          <li className="pl-1">
+            <Link
+              href={callToAction.href}
+              className="inline-flex min-h-10 items-center rounded-full bg-accent px-5 text-sm font-medium whitespace-nowrap text-on-accent transition-colors duration-300 hover:bg-accent-soft hover:text-ink"
+            >
+              {callToAction.label}
+            </Link>
+          </li>
+        </ul>
+      </nav>
 
       {menuMounted && (
         <MobileMenu

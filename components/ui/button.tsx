@@ -28,10 +28,10 @@ type ButtonAsLink = SharedProps &
 export type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const baseClasses =
-  "group/button relative inline-flex items-center justify-center gap-2.5 rounded-sm text-center font-medium tracking-[-0.005em] select-none touch-manipulation transition-[background-color,border-color,color,translate] duration-300 ease-editorial active:translate-y-px disabled:pointer-events-none disabled:opacity-45 aria-disabled:pointer-events-none aria-disabled:opacity-45";
+  "group/button relative inline-flex items-center justify-center gap-2.5 rounded-full text-center font-medium tracking-[-0.005em] select-none touch-manipulation transition-[background-color,border-color,color,translate] duration-300 ease-editorial active:translate-y-px disabled:pointer-events-none disabled:opacity-45 aria-disabled:pointer-events-none aria-disabled:opacity-45";
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: "bg-accent-strong text-on-accent hover:bg-accent",
+  primary: "btn-shine bg-accent-strong text-on-accent shadow-[0_10px_30px_-12px_rgb(86_64_111/0.7)] hover:bg-accent",
   secondary:
     "border border-border-strong bg-surface text-foreground hover:border-accent-soft hover:bg-surface-soft",
 };

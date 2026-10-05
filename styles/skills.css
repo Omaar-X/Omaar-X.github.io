@@ -1,0 +1,205 @@
+/* Skill visuals (components/sections/skills/skill-visuals.tsx). Everything is visible and still by
+   default; motion is added only when the visitor has not asked for reduced motion. */
+
+@keyframes viz-assemble {
+  0% {
+    opacity: 0;
+    scale: 0.9;
+  }
+  10%,
+  88% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 1;
+  }
+}
+
+@keyframes viz-type {
+  0% {
+    scale: 0 1;
+  }
+  12%,
+  88% {
+    scale: 1 1;
+    opacity: 1;
+  }
+  100% {
+    scale: 1 1;
+    opacity: 0;
+  }
+}
+
+@keyframes viz-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes viz-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@keyframes viz-draw {
+  0% {
+    stroke-dashoffset: 160;
+  }
+  45%,
+  85% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes viz-run {
+  from {
+    left: 0%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes viz-step {
+  0%,
+  6% {
+    border-color: rgb(215 127 179 / 0.9);
+    box-shadow: 0 0 0 4px rgb(215 127 179 / 0.16), 0 0 20px rgb(215 127 179 / 0.4);
+  }
+  30%,
+  100% {
+    border-color: #e2d8ef;
+    box-shadow: 0 8px 20px -12px rgb(60 40 90 / 0.45);
+  }
+}
+
+@keyframes viz-play {
+  from {
+    left: 2%;
+  }
+  to {
+    left: 97%;
+  }
+}
+
+@keyframes viz-pulse {
+  50% {
+    scale: 1.18;
+    opacity: 0.7;
+  }
+}
+
+@keyframes viz-float {
+  50% {
+    translate: 0.25rem -0.3rem;
+  }
+}
+
+@keyframes viz-scan {
+  from {
+    top: 8%;
+  }
+  to {
+    top: 92%;
+  }
+}
+
+@keyframes viz-glow {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@layer components {
+  .viz-flow {
+    fill: none;
+    stroke: rgb(120 96 154 / 0.45);
+    stroke-width: 1.2;
+    stroke-dasharray: 3 3;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .viz-curve {
+    fill: none;
+    stroke: #a993d6;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 160;
+    opacity: 0.55;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .viz-type {
+    transform-origin: left;
+  }
+
+  .viz-playhead {
+    left: 40%;
+  }
+
+  .viz-scan {
+    top: 50%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .viz-type {
+      animation: viz-type 7s var(--easing-editorial) var(--d, 0s) infinite both;
+    }
+
+    .viz-build,
+    .viz-pop {
+      animation: viz-assemble 7s var(--easing-out-expo) var(--d, 0s) infinite both;
+    }
+
+    .viz-caret {
+      animation: viz-blink 1s steps(1) infinite;
+    }
+
+    .viz-flow {
+      animation: viz-dash 1.4s linear infinite;
+    }
+
+    .viz-curve {
+      animation: viz-draw 7s var(--easing-editorial) infinite both;
+    }
+
+    .viz-runner {
+      animation: viz-run 3s linear infinite;
+    }
+
+    .viz-step {
+      animation: viz-step 3s linear var(--d, 0s) infinite;
+    }
+
+    .viz-playhead {
+      animation: viz-play 5s linear infinite;
+    }
+
+    .viz-focus {
+      animation: viz-pulse 2.4s ease-in-out infinite;
+    }
+
+    .viz-layer {
+      animation: viz-float 5s ease-in-out var(--d, 0s) infinite;
+    }
+
+    .viz-scan {
+      animation: viz-scan 2.6s ease-in-out infinite alternate;
+    }
+
+    .viz-heat {
+      animation: viz-glow 3s ease-in-out infinite;
+    }
+
+    .viz-mask {
+      animation: viz-pulse 3s ease-in-out infinite;
+    }
+  }
+}
