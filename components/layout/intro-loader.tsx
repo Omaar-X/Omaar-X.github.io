@@ -4,8 +4,8 @@ import { profile } from "@/data/profile";
 /**
  * The opening screen: the OF monogram draws itself, the name rises, a counter runs to 100, then the
  * panel wipes up into the hero. Pure CSS (styles/intro.css), so it always ends on its own, even
- * without JavaScript. It plays once per browser session (the inline script in app/layout.tsx marks
- * <html data-intro-seen>) and never under reduced motion. Decorative, so hidden from assistive tech.
+ * without JavaScript. It plays on every full page load and never under reduced motion. Decorative,
+ * so hidden from assistive tech.
  */
 export function IntroLoader() {
   const letters = [...profile.name.toUpperCase()];

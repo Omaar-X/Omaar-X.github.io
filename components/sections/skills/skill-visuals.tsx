@@ -13,7 +13,7 @@ const delay = (seconds: number) => ({ "--d": `${seconds}s` }) as CSSProperties;
 
 function Frame({ children, label }: { children: ReactNode; label: string }) {
   return (
-    <div aria-hidden className="viz relative isolate aspect-[4/3] w-full overflow-hidden rounded-xl border border-border bg-[radial-gradient(120%_90%_at_85%_0%,#ffffff,#f3edfa_55%,#ebe2f6)] shadow-[inset_0_1px_0_rgb(255_255_255/0.9),0_18px_40px_-28px_rgb(60_40_90/0.35)] sm:aspect-[16/11]">
+    <div aria-hidden className="viz relative isolate aspect-[16/10] w-full overflow-hidden rounded-xl border border-border bg-[radial-gradient(120%_90%_at_85%_0%,#ffffff,#f3edfa_55%,#ebe2f6)] shadow-[inset_0_1px_0_rgb(255_255_255/0.9),0_18px_40px_-28px_rgb(60_40_90/0.35)] sm:aspect-[16/11] lg:aspect-[16/9.5]">
       <span className="viz-label type-micro absolute top-3 right-3 z-10 rounded-full bg-white/90 px-2.5 py-1 text-mauve-ink shadow-[0_1px_2px_rgb(60_40_90/0.08)]">
         {label}
       </span>

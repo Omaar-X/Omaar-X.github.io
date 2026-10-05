@@ -211,6 +211,7 @@ export function SiteNavigation({
         </div>
       </Container>
 
+
       {/* Desktop: the section links live in a floating pill at the bottom of the window. */}
       <nav
         aria-label="Primary"
@@ -231,7 +232,7 @@ export function SiteNavigation({
               <Link
                 href={link.href}
                 aria-current={activeId === link.id ? "location" : undefined}
-                className="inline-flex min-h-10 items-center rounded-full px-3.5 text-sm whitespace-nowrap text-on-ink-muted transition-colors duration-300 hover:text-on-ink aria-[current=location]:bg-white/10 aria-[current=location]:text-on-ink"
+                className="inline-flex min-h-10 items-center rounded-full px-3 text-sm xl:px-3.5 whitespace-nowrap text-on-ink-muted transition-colors duration-300 hover:text-on-ink aria-[current=location]:bg-white/10 aria-[current=location]:text-on-ink"
               >
                 {link.label}
               </Link>
@@ -240,7 +241,7 @@ export function SiteNavigation({
           <li className="pl-1">
             <Link
               href={callToAction.href}
-              className="inline-flex min-h-10 items-center rounded-full bg-accent px-5 text-sm font-medium whitespace-nowrap text-on-accent transition-colors duration-300 hover:bg-accent-soft hover:text-ink"
+              className="inline-flex min-h-10 items-center rounded-full bg-accent px-4 xl:px-5 text-sm font-medium whitespace-nowrap text-on-accent transition-colors duration-300 hover:bg-accent-soft hover:text-ink"
             >
               {callToAction.label}
             </Link>

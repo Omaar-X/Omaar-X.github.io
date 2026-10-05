@@ -41,7 +41,11 @@ export function ResearchThesis({ item }: { item: ResearchItem }) {
           </p>
           <StatusBadge status={item.status} />
         </div>
-        <h3 id="research-thesis-title" className="scroll-rise type-mega text-foreground">
+        <h3
+          id="research-thesis-title"
+          className="scroll-rise type-mega text-foreground"
+          style={{ fontSize: "min(var(--step-mega), 8.4vw)" }}
+        >
           {item.shortTitle}
         </h3>
         <p className="type-body-lg text-accent-strong">

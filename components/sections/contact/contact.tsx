@@ -32,9 +32,9 @@ export function ContactSection() {
               </Button>
               <SmartLink
                 href={contactEmail.href}
-                className="type-h3 link-underline text-foreground [overflow-wrap:anywhere]"
+                className="type-h3 inline-flex min-h-11 items-center text-foreground [overflow-wrap:anywhere]"
               >
-                {contactEmail.value}
+                <span className="link-underline">{contactEmail.value}</span>
               </SmartLink>
             </div>
           </div>

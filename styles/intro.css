@@ -1,7 +1,8 @@
 /* Intro loader (components/layout/intro-loader.tsx). About 2.2s in total, CSS only:
  *   0.0–1.6s  monogram draws, name rises, counter and bar run 0 → 100
  *   1.6–2.2s  the panel wipes up and the hero's own entrance begins underneath
- * Skipped when <html data-intro-seen> (once per session) or under reduced motion. */
+ * Plays on every full page load (client-side navigation keeps the layout, so it does not replay);
+ * never under reduced motion. */
 
 @property --intro-n {
   syntax: "<integer>";
@@ -67,7 +68,7 @@
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    html:not([data-intro-seen]) .intro {
+    .intro {
       position: fixed;
       inset: 0;
       z-index: 100;
@@ -82,7 +83,7 @@
     }
 
     /* The hero waits for the wipe before running its own entrance. */
-    html:not([data-intro-seen]) {
+    :root {
       --intro-offset: 1700ms;
     }
   }

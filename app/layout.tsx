@@ -43,9 +43,6 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-/** Marks the intro loader as seen for the rest of the session, before first paint. */
-const introScript = `try{var k="intro-seen";if(sessionStorage.getItem(k))document.documentElement.setAttribute("data-intro-seen","");else sessionStorage.setItem(k,"1")}catch(e){}`;
-
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html
@@ -53,11 +50,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       data-theme="light"
       data-scroll-behavior="smooth"
       className={cn(fontDisplay.variable, fontSans.variable, fontScript.variable)}
-      suppressHydrationWarning
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: introScript }} />
-      </head>
       <body>
         <PageShell>{children}</PageShell>
       </body>

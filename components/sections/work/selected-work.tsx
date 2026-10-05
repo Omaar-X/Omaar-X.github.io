@@ -12,8 +12,9 @@ import { WorkCard } from "./work-card";
 const github = profile.socials.find((social) => social.id === "github");
 
 /**
- * All projects as a sticky stack: each card pins near the top while the next one slides up over
- * it, a little lower each time, so the previous cards stay visible as a pile of edges.
+ * All projects as a sticky stack under a pinned heading: each card pins just below the heading while
+ * the next one slides up over it, a little lower each time, so the previous cards stay visible as a
+ * pile of edges. Card height follows the window height (styles/effects.css, .work-stack).
  */
 export function SelectedWork() {
   const cards = [
@@ -27,33 +28,35 @@ export function SelectedWork() {
   return (
     <section
       aria-labelledby="work-title"
-      className="relative pt-section-compact pb-section-compact"
-      style={{ "--work-card-h": "min(34rem, calc(100svh - var(--header-offset) - 8rem))" } as CSSProperties}
+      className="work-stack relative pt-section-compact pb-section-compact"
     >
-      <Container className="flex flex-col gap-fluid-lg">
-        <SectionIntro
-          id="work-title"
-          label="Portfolio projects"
-          title={
-            <>
-              Selected <Accent>Work</Accent>
-            </>
-          }
-          action={
-            github && (
-              <Button variant="secondary" size="sm" href={github.href} icon={ArrowUpRight}>
-                View all on GitHub
-              </Button>
-            )
-          }
-        />
+      <Container className="flex flex-col gap-fluid-md">
+        {/* Pinned under the header at every size, like "How I build products"; the cards stack beneath. */}
+        <div className="work-head">
+          <SectionIntro
+            id="work-title"
+            label="Portfolio projects"
+            title={
+              <>
+                Selected <Accent>Work</Accent>
+              </>
+            }
+            action={
+              github && (
+                <Button variant="secondary" size="sm" href={github.href} icon={ArrowUpRight} className="max-md:hidden">
+                  View all on GitHub
+                </Button>
+              )
+            }
+          />
+        </div>
 
         <ol aria-label="Projects" className="flex flex-col gap-fluid-md">
           {cards.map(({ project, note }, index) => (
             <li
               key={project.slug}
-              className="sticky"
-              style={{ top: `calc(var(--header-offset) + 1rem + ${index * 0.9}rem)` }}
+              className="work-stack-item"
+              style={{ "--i": index } as CSSProperties}
             >
               <WorkCard
                 project={project}

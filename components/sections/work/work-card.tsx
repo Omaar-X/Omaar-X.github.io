@@ -47,14 +47,14 @@ export function WorkCard({ project, tone, index, total, note }: WorkCardProps) {
       aria-labelledby={titleId}
       data-spotlight=""
       className={cn(
-        "group/card relative isolate flex flex-col overflow-hidden rounded-card border shadow-[0_-12px_40px_-20px_rgb(60_40_90/0.25),0_30px_70px_-30px_rgb(60_40_90/0.35)] md:block md:h-(--work-card-h)",
+        "group/card relative isolate flex flex-col overflow-hidden rounded-card border h-(--work-card-h) shadow-[0_-12px_40px_-20px_rgb(60_40_90/0.25),0_30px_70px_-30px_rgb(60_40_90/0.35)] md:block",
         dark
           ? "border-white/10 bg-[radial-gradient(120%_120%_at_85%_0%,#5b4479,var(--ink)_65%)] text-on-ink [--spot:rgb(255_255_255/0.1)]"
           : "border-white/70 bg-[radial-gradient(120%_120%_at_85%_0%,#f7f2fd,var(--lavender)_70%)] text-foreground [--spot:rgb(255_255_255/0.45)]",
       )}
     >
       {project.image && (
-        <div className="relative px-[6%] pt-[6%] md:absolute md:top-1/2 md:right-[4%] md:w-[56%] md:-translate-y-1/2 md:p-0">
+        <div className="work-shot relative shrink-0 px-[6%] pt-[6%] md:absolute md:top-1/2 md:right-[4%] md:-translate-y-1/2 md:p-0">
           <div className="origin-center transition-transform duration-700 ease-editorial md:rotate-[-2deg] md:group-hover/card:rotate-0 md:group-hover/card:scale-[1.03]">
             <div className="overflow-hidden rounded-lg bg-surface shadow-float ring-1 ring-black/5">
               <div aria-hidden className="flex h-5 items-center gap-1 border-b border-border px-2.5 sm:h-7">
@@ -78,7 +78,7 @@ export function WorkCard({ project, tone, index, total, note }: WorkCardProps) {
         </div>
       )}
 
-      <div className="relative z-10 flex flex-1 flex-col justify-between gap-fluid-sm p-[clamp(1.25rem,0.75rem+2vw,2.75rem)] md:h-full md:w-[40%]">
+      <div className="relative z-10 flex min-h-0 flex-1 flex-col justify-between gap-3 p-[clamp(1rem,0.6rem+2vw,2.5rem)] md:h-full md:w-[40%] md:gap-fluid-sm">
         <div className="flex items-center justify-between gap-3 md:justify-start">
           <p className={cn("type-micro tabular-nums", dark ? "text-on-ink-muted" : "text-mauve-ink")}>
             {pad(index + 1)} / {pad(total)}
@@ -99,7 +99,7 @@ export function WorkCard({ project, tone, index, total, note }: WorkCardProps) {
           </span>
         </div>
 
-        <div className="flex flex-col gap-fluid-xs">
+        <div className="flex min-h-0 flex-1 flex-col justify-center-safe gap-fluid-xs overflow-hidden">
           {(meta || note) && (
             <p className={cn("type-micro", dark ? "text-on-ink-muted" : "text-mauve-ink")}>
               {meta}
@@ -107,7 +107,7 @@ export function WorkCard({ project, tone, index, total, note }: WorkCardProps) {
               {note}
             </p>
           )}
-          <h3 id={titleId} className="type-title text-balance">
+          <h3 id={titleId} className="font-display text-[clamp(1.625rem,1.1rem+1.6vw,2.75rem)] leading-[1.05] font-semibold tracking-[-0.03em] text-balance [font-stretch:112%]">
             {primary ? (
               <SmartLink
                 href={primary.href}
@@ -121,7 +121,7 @@ export function WorkCard({ project, tone, index, total, note }: WorkCardProps) {
             )}
           </h3>
           {project.summary && (
-            <p className={cn("type-small line-clamp-3 max-w-md md:type-body", dark ? "text-on-ink-muted" : "text-muted")}>
+            <p className={cn("type-small line-clamp-2 max-w-md", dark ? "text-on-ink-muted" : "text-muted")}>
               {project.summary}
             </p>
           )}
@@ -143,7 +143,7 @@ export function WorkCard({ project, tone, index, total, note }: WorkCardProps) {
         </div>
 
         {primary && (
-          <p className="inline-flex items-center gap-3 text-sm font-medium">
+          <p className="inline-flex shrink-0 items-center gap-3 text-sm font-medium">
             <span
               aria-hidden
               className={cn(

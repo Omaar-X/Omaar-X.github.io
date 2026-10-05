@@ -453,3 +453,163 @@
     color: transparent;
   }
 }
+
+@layer components {
+  /* Selected Work (components/sections/work/selected-work.tsx): a pinned heading with the cards
+     stacking beneath it at every size. Card height follows the window so a stuck card always fits
+     between the heading and the bottom edge. */
+  .work-stack {
+    --work-head: 6.5rem;
+    --stack-step: 0.5rem;
+    --work-card-h: max(16rem, min(31rem, calc(100svh - var(--header-offset) - var(--work-head) - 2rem - 6 * var(--stack-step))));
+  }
+
+  @media (width >= 48rem) {
+    .work-stack {
+      --work-head: 7.5rem;
+      --stack-step: 0.9rem;
+      --work-card-h: max(13rem, min(34rem, calc(100svh - var(--header-offset) - var(--work-head) - 2.25rem - 6 * var(--stack-step))));
+    }
+  }
+
+  @media (width >= 64rem) {
+    .work-stack {
+      --work-head: 8rem;
+    }
+  }
+
+  /* Short windows (laptops at 1366×650, small previews): tighter steps and a compact heading so the
+     cards keep a generous height. */
+  @media (width >= 48rem) and (max-height: 46rem) {
+    .work-stack {
+      --work-head: 6.25rem;
+      --stack-step: 0.3rem;
+    }
+  }
+
+  .work-head {
+    position: sticky;
+    top: var(--header-offset);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: var(--work-head);
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0.75rem var(--gutter) 1rem;
+    background: rgb(247 244 252 / 0.95);
+    backdrop-filter: blur(14px) saturate(1.3);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    border-bottom: 1px solid rgb(221 213 232 / 0.7);
+  }
+
+  @media (width >= 64rem) {
+    .work-head {
+      margin-inline: 0;
+      padding: 0 0 0.75rem;
+      background: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom: 0;
+    }
+  }
+
+  .work-stack-item {
+    position: sticky;
+    top: calc(var(--header-offset) + var(--work-head) + 0.75rem + var(--i, 0) * var(--stack-step));
+  }
+}
+
+@layer components {
+  /* Work card screen: on wide cards it is sized by the card's height as well as its width, so the
+     whole screenshot always fits inside the card. */
+  @media (width >= 48rem) {
+    .work-shot {
+      width: min(56%, calc((var(--work-card-h) - 3.5rem) * 1.65));
+    }
+  }
+}
+
+@layer components {
+  /* "How I build products" heading (components/sections/skills/skills.tsx): pinned under the header
+     at every size. Below desktop the cards scroll beneath it, so it carries a frosted lavender
+     background that spans the full width; on desktop the cards stop below it and it is transparent. */
+  /* Cards stack under the heading at every size. Below desktop the heading has a fixed height and
+     the cards a fixed height that follows the window, so a stuck card always fits on screen. */
+  .skills-stack {
+    --skills-head-m: 5.75rem;
+    --skill-step: 0.5rem;
+    --skill-card-h: max(20rem, min(29rem, calc(100svh - var(--header-offset) - var(--skills-head-m) - 1.25rem - 4 * var(--skill-step))));
+  }
+
+  @media (width >= 48rem) {
+    .skills-stack {
+      --skills-head-m: 6.75rem;
+      --skill-card-h: max(16rem, min(26rem, calc(100svh - var(--header-offset) - var(--skills-head-m) - 1.25rem - 4 * var(--skill-step))));
+    }
+  }
+
+  .skills-stack-item {
+    position: sticky;
+    top: calc(var(--header-offset) + var(--skills-head-m) + 0.5rem + var(--i, 0) * var(--skill-step));
+  }
+
+  @media (width >= 64rem) {
+    .skills-stack-item {
+      top: calc(var(--header-offset) + var(--skills-head) + 0.75rem + var(--i, 0) * 0.75rem);
+    }
+  }
+
+  /* One row of tags below desktop, fading out at the edge instead of wrapping. */
+  @media (width < 64rem) {
+    .skill-tags {
+      mask-image: linear-gradient(to right, #000 82%, transparent);
+    }
+  }
+
+  .skills-head {
+    position: sticky;
+    top: var(--header-offset);
+    z-index: 20;
+    align-content: end;
+    height: var(--skills-head-m);
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0.75rem var(--gutter) 1rem;
+    background: rgb(244 238 251 / 0.95);
+    backdrop-filter: blur(14px) saturate(1.3);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    border-bottom: 1px solid rgb(221 213 232 / 0.7);
+  }
+
+  @media (width >= 64rem) {
+    .skills-head {
+      height: var(--skills-head);
+      margin-inline: 0;
+      padding: 0 0 0.75rem;
+      background: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom: 0;
+    }
+  }
+}
+
+/* Unlayered so it can override the heading's type utilities: the compact Selected Work heading on
+   short windows (see .work-stack above). */
+@media (width >= 48rem) and (max-height: 46rem) {
+  .work-head h2 {
+    font-size: clamp(1.75rem, 1.2rem + 2vw, 2.75rem);
+  }
+
+  .work-head .type-kicker {
+    font-size: 1.125rem;
+  }
+}
+
+/* Unlayered so it can override the heading's type utility: below desktop the pinned
+   "How I build products" heading stays on one line. */
+@media (width < 64rem) {
+  .skills-head h2 {
+    font-size: clamp(1.5rem, 1.1rem + 2.4vw, 2.25rem);
+  }
+}

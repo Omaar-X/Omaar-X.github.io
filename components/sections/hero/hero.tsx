@@ -48,8 +48,8 @@ function StatChip({ value, label, className, delay }: { value: string; label: st
 }
 
 /**
- * The introduction: the name set huge and split around a tilted tablet that plays real project
- * screens. Role and location sit beside the name; the floating navigation carries the main action.
+ * The introduction: the full name set huge on one line, a tilted tablet beneath it that plays real
+ * project screens, with the role on one side and the two main actions on the other.
  */
 export function Hero() {
   const { name, heroTagline, heroRoles, portrait, cv, location, currentRole, currentCompany } = profile;
@@ -79,7 +79,7 @@ export function Hero() {
     <section
       id="hero"
       aria-labelledby="hero-title"
-      className="relative isolate flex min-h-(--viewport-height-stable) flex-col justify-center overflow-hidden pt-[calc(var(--header-offset)+var(--fluid-sm))] pb-[calc(var(--fluid-xl)+2rem)]"
+      className="relative isolate flex min-h-(--viewport-height-stable) flex-col justify-center overflow-hidden pt-[calc(var(--header-offset)+var(--fluid-sm))] pb-[calc(var(--fluid-xl)+2rem)] lg:pb-fluid-xl"
     >
       <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
         <span className="aurora top-[8%] left-[18%] size-[34rem] bg-[#d9c8f2]" />
@@ -117,35 +117,51 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Desktop: name split around the tablet. */}
-        <div className="hidden lg:flex lg:flex-col lg:gap-fluid-md">
-          <div className="enter-fade" style={enterDelay(0)}>
-            <AvailabilityRing portrait={portrait} label="Open to conversations" />
-          </div>
-          <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)_minmax(0,1fr)] items-center gap-fluid-md">
-            <div className="enter-rise flex flex-col gap-3" style={enterDelay(120)}>
-              <p className="type-body text-muted">{heroTagline}</p>
-              <p aria-hidden className="type-display text-[clamp(3.25rem,0.5rem+5.2vw,6.25rem)] text-foreground">
-                <RisingWord word={first} />
-              </p>
+        {/* Desktop: the full name on one line, the tablet beneath it between the role and the actions. */}
+        <div className="hidden lg:flex lg:flex-col lg:gap-fluid-sm">
+          <div className="flex items-end justify-between gap-fluid-md">
+            <div className="enter-fade flex items-center gap-fluid-sm" style={enterDelay(0)}>
+              <AvailabilityRing portrait={portrait} label="Open to conversations" />
+              <p className="type-body-lg text-muted">{heroTagline}</p>
             </div>
-            <div className="enter-fade relative z-10" style={enterDelay(260)}>
+            <div className="enter-rise pb-3 text-right" style={enterDelay(160)}>
+              {place}
+            </div>
+          </div>
+
+          <p
+            aria-hidden
+            className="type-display text-center text-[clamp(3.5rem,8.4vw,9rem)] whitespace-nowrap text-foreground"
+          >
+            <RisingWord word={first} />
+            <span className="inline-block w-[0.3em]" />
+            <RisingWord word={last} offset={first.length} />
+          </p>
+
+          <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,min(32rem,36vw))_minmax(0,1fr)] items-center gap-fluid-md">
+            <div className="enter-rise max-w-[20rem] text-balance" style={enterDelay(220)}>
+              {role}
+            </div>
+
+            <div className="enter-fade relative z-10 py-8" style={enterDelay(260)}>
               <div data-tilt="10">
                 <HeroDevice screens={deviceScreens} eager />
               </div>
               {proofPoints[0] && (
-                <StatChip {...proofPoints[0]} delay="0s" className="-top-8 -left-10" />
+                <StatChip {...proofPoints[0]} delay="0s" className="top-0 -left-12" />
               )}
               {proofPoints[1] && (
-                <StatChip {...proofPoints[1]} delay="-2.5s" className="-right-8 -bottom-10" />
+                <StatChip {...proofPoints[1]} delay="-2.5s" className="-right-10 bottom-0" />
               )}
             </div>
-            <div className="enter-rise flex flex-col items-end gap-3 text-right" style={enterDelay(180)}>
-              {role}
-              <p aria-hidden className="type-display text-[clamp(3.25rem,0.5rem+5.2vw,6.25rem)] text-foreground">
-                <RisingWord word={last} offset={first.length} />
-              </p>
-              {place}
+
+            <div className="enter-rise flex flex-col items-end gap-3" style={enterDelay(300)}>
+              <Button href={`#${workSection}`} icon={ArrowDown}>
+                View work
+              </Button>
+              <Button variant="secondary" href={cv.general.href} download={cv.general.fileName} icon={Download}>
+                Download CV
+              </Button>
             </div>
           </div>
         </div>

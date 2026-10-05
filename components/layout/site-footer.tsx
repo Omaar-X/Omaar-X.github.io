@@ -36,11 +36,11 @@ export function SiteFooter() {
 
       <Container className="flex flex-col items-center gap-fluid-md pt-fluid-md pb-[calc(max(var(--fluid-md),env(safe-area-inset-bottom))+4.5rem)] text-center nav:pb-[calc(var(--fluid-md)+5rem)]">
         <div className="flex flex-col items-center gap-2">
-          <SmartLink href={contactEmail.href} className="type-h3 link-underline">
-            {contactEmail.value}
+          <SmartLink href={contactEmail.href} className="type-h3 inline-flex min-h-11 items-center">
+            <span className="link-underline">{contactEmail.value}</span>
           </SmartLink>
           {phone && (
-            <SmartLink href={phone.href} className="type-body text-muted hover:text-foreground">
+            <SmartLink href={phone.href} className="type-body inline-flex min-h-11 items-center text-muted hover:text-foreground">
               {phone.value}
             </SmartLink>
           )}

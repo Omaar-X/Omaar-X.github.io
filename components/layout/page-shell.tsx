@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/navigation/site-header";
 import { SkipLink } from "@/components/ui/skip-link";
 import { Backdrop } from "./backdrop";
 import { IntroLoader } from "./intro-loader";
+import { IntroSettle } from "./intro-settle";
 import { PointerEffects } from "./pointer-effects";
 import { SiteFooter } from "./site-footer";
 
@@ -19,6 +20,7 @@ export function PageShell({ children }: { children: ReactNode }) {
       </main>
       <SiteFooter />
       <PointerEffects />
+      <IntroSettle />
     </div>
   );
 }
